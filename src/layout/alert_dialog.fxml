@@ -15,7 +15,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="iv_tip" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageview_tip" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/alert.png" />
                </image>
@@ -23,7 +23,7 @@
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="ib_info" prefHeight="100.0" prefWidth="386.0" text="Label" textFill="#c37c7c">
+            <Label fx:id="label_info" prefHeight="100.0" prefWidth="386.0" text="Label" textFill="#c37c7c">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

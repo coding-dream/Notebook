@@ -18,7 +18,6 @@ public class AlertDialog {
 
 	private String view;
 	private String title;
-	private Stage ownerStage;
 	private Stage stage;
 	private HashMap<String,OnClickListener> listeners = new HashMap<>();
 	private HashMap<String,String> textNodes = new HashMap<>();
@@ -27,7 +26,6 @@ public class AlertDialog {
 	public AlertDialog(Builder builder) {
 		this.view = builder.view;
 		this.title = builder.title;
-		this.ownerStage = builder.ownerStage;
 		this.stage = builder.stage;
 		this.listeners = builder.listeners;
 		this.textNodes = builder.textNodes;
@@ -40,7 +38,6 @@ public class AlertDialog {
 		try {
 			root = LayoutInflater.inflate(view, Parent.class);
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.initOwner(ownerStage);
 
 			// init listener
 			for(String key : listeners.keySet()){
@@ -103,7 +100,6 @@ public class AlertDialog {
 	public static final class Builder {
 		 private String view;
 		 private String title;
-		 private Stage ownerStage;
 		 private Stage stage;
 		 private HashMap<String,OnClickListener> listeners;
 		 private HashMap<String,String> textNodes;
@@ -129,11 +125,6 @@ public class AlertDialog {
 
 		public Builder title(String title){
 			this.title = title;
-			return this;
-		}
-
-		public Builder ownerStage(Stage ownerStage){
-			this.ownerStage = ownerStage;
 			return this;
 		}
 

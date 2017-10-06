@@ -1,6 +1,7 @@
 package application;
 
 import application.dialog.AlertDialog;
+import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,15 +18,7 @@ public class Main extends Application {
 			VBox vBox = LayoutInflater.inflate("activity_main", VBox.class);
 			Button button = new Button("button");
 			button.setOnAction(e->{
-				AlertDialog dialog = new AlertDialog.Builder()
-						.view("alert_dialog")
-						.title("确定删除?")
-						.ownerStage(primaryStage)
-						.setText("#ib_info","这是提示信息!")
-						.setImage("#iv_tip", new Image("images/mv.jpg"))
-						.build();
-				dialog.show();
-
+				DialogHelper.alert("title", "this is message!", new Image("images/girl.jpg"));
 			});
 			vBox.getChildren().add(button);
 			Scene scene = new Scene(vBox,500,500);
