@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="91.0" prefWidth="155.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="confirm" mnemonicParsing="false" prefHeight="0.0" prefWidth="154.0" text="确定" />
+      <Button fx:id="cancel" mnemonicParsing="false" prefHeight="23.0" prefWidth="155.0" text="取消" />
+   </children>
+</VBox>

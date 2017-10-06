@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
    <children>
-      <Button fx:id="btn_set" mnemonicParsing="false" text="设置" />
-      <Button fx:id="btn_cancel" mnemonicParsing="false" text="取消" />
+		<MenuBar VBox.vgrow="NEVER">
+			<menus>
+				 <Menu fx:id="mnFile" mnemonicParsing="false" text="文件">
+				 	<items>
+
+				 		<MenuItem fx:id="mniOpenImg" mnemonicParsing="false" onAction="#chooseImg" text="打开图片">
+		                    <graphic>
+			                    <ImageView fitHeight="20.0" fitWidth="20.0">
+			                      <image>
+							            <Image url="images/logo.jpg" />
+						           </image>
+						         </ImageView>
+		    	              </graphic>
+		        	           <accelerator>
+		            	          <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+		                	   </accelerator>
+			            </MenuItem>
+
+			             <MenuItem fx:id="mniExportSelectedTail" mnemonicParsing="false" onAction="#exportSelectedTail" text="导出选中内容">
+	                     <accelerator>
+	                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+	                     </accelerator>
+		                     <graphic>
+			                     <ImageView fitHeight="20.0" fitWidth="20.0">
+				                       <image>
+							           		 <Image url="images/logo.jpg" />
+							           </image>
+						         </ImageView>
+			               		</graphic>
+	            		 </MenuItem>
+
+				 	</items>
+				 </Menu>
+			</menus>
+		</MenuBar>
    </children>
 </VBox>
