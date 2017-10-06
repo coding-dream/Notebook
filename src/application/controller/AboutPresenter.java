@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
-public class AboutController implements Initializable{
+public class AboutPresenter implements Initializable{
 	@FXML
 	private TextArea text_area_content;
 

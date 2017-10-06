@@ -91,7 +91,7 @@ public class AlertDialog {
 
 	public void show(){
 			Scene scene = new Scene(root);
-            stage.setTitle(Constants.APP_NAME + " " + title);
+            stage.setTitle(Constants.APP_NAME + " - " + title);
             stage.getIcons().add(Constants.APP_LOGO);
             stage.setScene(scene);
             stage.setResizable(false);

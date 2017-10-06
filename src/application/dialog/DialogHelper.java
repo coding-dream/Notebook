@@ -23,10 +23,10 @@ public class DialogHelper {
 		.show();
 	}
 
-	public static void about(String title, String message){
+	public static void about(){
 		new AlertDialog.Builder()
 		.view("about")
-		.title(title)
+		.title("¹ØÓÚ")
 		.build()
 		.show();
 	}

@@ -2,14 +2,14 @@ package application;
 
 import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
-import application.util.FileUtils;
+import application.view.HelloView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -17,11 +17,12 @@ public class Main extends Application {
 			VBox vBox = LayoutInflater.inflate("activity_main", VBox.class);
 			Button button = new Button("button");
 			button.setOnAction(e->{
-//				DialogHelper.alert("title", "this is message!", new Image("images/girl.jpg"));
-				DialogHelper.about("about me", null);
+				DialogHelper.about();
 			});
+
 			vBox.getChildren().add(button);
 			Scene scene = new Scene(vBox,500,500);
+			scene.setRoot(new HelloView().getView());
 			scene.getStylesheets().add("css/application.css");
 
 			primaryStage.setTitle(Constants.APP_NAME);
