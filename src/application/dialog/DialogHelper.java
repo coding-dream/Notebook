@@ -22,4 +22,12 @@ public class DialogHelper {
 		.build()
 		.show();
 	}
+
+	public static void about(String title, String message){
+		new AlertDialog.Builder()
+		.view("about")
+		.title(title)
+		.build()
+		.show();
+	}
 }

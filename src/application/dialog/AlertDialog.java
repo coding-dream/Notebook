@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
@@ -56,6 +58,10 @@ public class AlertDialog {
 				if(node != null && node instanceof Labeled){
 					String value = textNodes.get(key);
 					((Labeled) node).setText(value);
+				}
+				if(node != null && node instanceof TextInputControl){
+					String value = textNodes.get(key);
+					((TextInputControl) node).setText(value);
 				}
 			}
 			// init imageNodes
