@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="91.0" prefWidth="155.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="confirm" mnemonicParsing="false" prefHeight="0.0" prefWidth="154.0" text="确定" />
-      <Button fx:id="cancel" mnemonicParsing="false" prefHeight="23.0" prefWidth="155.0" text="取消" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="iv_tip" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/alert.png" />
+               </image>
+               <HBox.margin>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="ib_info" prefHeight="100.0" prefWidth="386.0" text="Label" textFill="#c37c7c">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </padding>
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="65.0" prefWidth="491.0">
+         <children>
+            <Button defaultButton="true" layoutX="313.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="确定" >
+	            <graphic>
+	            	<ImageView fitHeight="20.0" fitWidth="20.0">
+	                     <image>
+		                   <Image url="images/ok.png" />
+		                  </image>
+		             </ImageView>
+	             </graphic>
+            </Button>
+            <Button cancelButton="true" layoutX="415.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="取消">
+            	<graphic>
+	            	<ImageView fitHeight="20.0" fitWidth="20.0">
+	                     <image>
+		                   <Image url="images/cancel.png" />
+		                  </image>
+		             </ImageView>
+	             </graphic>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </AnchorPane>
    </children>
 </VBox>

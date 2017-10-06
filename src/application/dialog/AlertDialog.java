@@ -6,6 +6,10 @@ import application.Constants;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,6 +21,8 @@ public class AlertDialog {
 	private Stage ownerStage;
 	private Stage stage;
 	private HashMap<String,OnClickListener> listeners = new HashMap<>();
+	private HashMap<String,String> textNodes = new HashMap<>();
+	private HashMap<String,Image> imageNodes = new HashMap<>();
 
 	public AlertDialog(Builder builder) {
 		this.view = builder.view;
@@ -24,6 +30,8 @@ public class AlertDialog {
 		this.ownerStage = builder.ownerStage;
 		this.stage = builder.stage;
 		this.listeners = builder.listeners;
+		this.textNodes = builder.textNodes;
+		this.imageNodes = builder.imageNodes;
 
 		initAlertDialog();
 	}
@@ -37,12 +45,28 @@ public class AlertDialog {
 			// init listener
 			for(String key : listeners.keySet()){
 				Node node = root.lookup(key);
-				if(node != null){
+				if(node != null && node instanceof Button){
 					node.setOnMouseClicked(e->{
 						OnClickListener listener = listeners.get(key);
 						listener.onClick(stage);
 					});
 
+				}
+			}
+			// init textNodes
+			for(String key : textNodes.keySet()){
+				Node node = root.lookup(key);
+				if(node != null && node instanceof Labeled){
+					String value = textNodes.get(key);
+					((Labeled) node).setText(value);
+				}
+			}
+			// init imageNodes
+			for(String key : imageNodes.keySet()){
+				Node node = root.lookup(key);
+				if(node != null && node instanceof ImageView){
+					Image image = imageNodes.get(key);
+					((ImageView) node).setImage(image);
 				}
 			}
 
@@ -82,12 +106,16 @@ public class AlertDialog {
 		 private Stage ownerStage;
 		 private Stage stage;
 		 private HashMap<String,OnClickListener> listeners;
+		 private HashMap<String,String> textNodes;
+		 private HashMap<String,Image> imageNodes;
 
 		 public Builder(){
 			 view = "empty";
 			 title = Constants.APP_NAME;
 			 stage = new Stage();// 需要重新创建一个
 			 listeners = new HashMap<>();
+			 textNodes = new HashMap<>();
+			 imageNodes = new HashMap<>();
 		 }
 
 		 public Builder(AlertDialog alertDialog) {
@@ -115,6 +143,16 @@ public class AlertDialog {
 
 		public Builder click(String clickNode, OnClickListener onClickListener) {
 			listeners.put(clickNode, onClickListener);
+			return this;
+		}
+
+		public Builder setText(String nodeId, String msg) {
+			textNodes.put(nodeId, msg);
+			return this;
+		}
+
+		public Builder setImage(String nodeId, Image image) {
+			imageNodes.put(nodeId, image);
 			return this;
 		}
 

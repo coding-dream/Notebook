@@ -2,10 +2,10 @@ package application;
 
 import application.dialog.AlertDialog;
 import application.dialog.LayoutInflater;
-import application.dialog.OnClickListener;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,28 +18,12 @@ public class Main extends Application {
 			Button button = new Button("button");
 			button.setOnAction(e->{
 				AlertDialog dialog = new AlertDialog.Builder()
-						.view("info_dialog")
-						.title("this is alertDialog")
+						.view("alert_dialog")
+						.title("确定删除?")
 						.ownerStage(primaryStage)
-						.click("#confirm",new OnClickListener() {
-
-							@Override
-							public void onClick(Stage stage) {
-								System.out.println("confirm");
-							}
-						})
-						.click("#cancel", new OnClickListener(){
-							@Override
-							public void onClick(Stage stage) {
-								System.out.println("cancel");
-								stage.close();
-							}
-						})
+						.setText("#ib_info","这是提示信息!")
+						.setImage("#iv_tip", new Image("images/mv.jpg"))
 						.build();
-				Button btn = dialog.findView("#confirm",Button.class);
-				btn.setOnAction(event -> {
-					System.out.println(btn.getText());
-				});
 				dialog.show();
 
 			});
