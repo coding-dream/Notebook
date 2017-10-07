@@ -18,13 +18,16 @@
 				<AnchorPane prefHeight="35.0" prefWidth="818.0" BorderPane.alignment="CENTER" />
 			</top>
 			<left>
-				<AnchorPane fx:id="main_left" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+				<AnchorPane fx:id="main_left" prefHeight="434.0" prefWidth="197.0" BorderPane.alignment="CENTER" />
 			</left>
 			<center>
-				<AnchorPane fx:id="main_center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+				<AnchorPane fx:id="main_center" prefHeight="434.0" prefWidth="553.0" BorderPane.alignment="CENTER" />
 			</center>
 			<right>
-				<AnchorPane fx:id="main_right" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+				<AnchorPane fx:id="main_right" prefHeight="434.0" prefWidth="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="-5.0" layoutY="121.0" text="xx" />
+               </children></AnchorPane>
 			</right>
 			<bottom>
 				<AnchorPane fx:id="main_bottom" prefHeight="69.0" prefWidth="818.0" BorderPane.alignment="CENTER">
