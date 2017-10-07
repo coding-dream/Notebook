@@ -10,6 +10,6 @@
 
 <VBox onDragDropped ="#dragDroppedFile" onDragOver="#dragOverFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
    <children>
-		 <fx:include fx:id="menuBar" source="main_menu.fxml"/>
+		 <fx:include fx:id="menuBar" source="menu_main.fxml"/>
    </children>
 </VBox>

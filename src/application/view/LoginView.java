@@ -8,7 +8,7 @@ public class LoginView implements View {
 
 	@Override
 	public Parent getView() {
-		AnchorPane anchorPane = LayoutInflater.inflate("login", AnchorPane.class);
+		AnchorPane anchorPane = LayoutInflater.inflate("activity_login", AnchorPane.class);
 		return anchorPane;
 	}
 
