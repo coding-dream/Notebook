@@ -2,7 +2,6 @@ package application;
 
 import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
-import application.view.HelloView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +13,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
 			VBox vBox = LayoutInflater.inflate("activity_main", VBox.class);
 			Button button = new Button("button");
 			button.setOnAction(e->{
@@ -22,7 +22,6 @@ public class App extends Application {
 
 			vBox.getChildren().add(button);
 			Scene scene = new Scene(vBox,500,500);
-			scene.setRoot(new HelloView().getView());
 			scene.getStylesheets().add("css/application.css");
 
 			primaryStage.setTitle(Constants.APP_NAME);

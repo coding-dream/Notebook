@@ -27,7 +27,7 @@ public class MainPresenter implements Initializable {
 	@FXML
 	public void dragDroppedFile(DragEvent event) {
 		Dragboard dragboard = event.getDragboard();
-		List files = dragboard.getFiles();
+		List<File> files = dragboard.getFiles();
 		if (files.size() > 0) {
 			File file = (File) files.get(0);
 			Pattern pattern = Pattern.compile(".*(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF|.bmp|.BMP)$");
