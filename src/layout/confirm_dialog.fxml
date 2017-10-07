@@ -38,11 +38,20 @@
       </HBox>
       <AnchorPane prefHeight="65.0" prefWidth="491.0">
          <children>
-            <Button fx:id="btn_confirm" defaultButton="true" layoutX="406.0" layoutY="19.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="确定">
+            <Button defaultButton="true" layoutX="313.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="确定" >
 	            <graphic>
 	            	<ImageView fitHeight="20.0" fitWidth="20.0">
 	                     <image>
 		                   <Image url="images/ok.png" />
+		                  </image>
+		             </ImageView>
+	             </graphic>
+            </Button>
+            <Button cancelButton="true" layoutX="415.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" text="取消">
+            	<graphic>
+	            	<ImageView fitHeight="20.0" fitWidth="20.0">
+	                     <image>
+		                   <Image url="images/cancel.png" />
 		                  </image>
 		             </ImageView>
 	             </graphic>

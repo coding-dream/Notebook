@@ -1,6 +1,7 @@
 package application.dialog;
 
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 public class DialogHelper {
 
@@ -9,6 +10,13 @@ public class DialogHelper {
 		.view("alert_dialog")
 		.title(title)
 		.setText("#label_info", message)
+		.click("#btn_confirm", new OnClickListener() {
+
+			@Override
+			public void onClick(Stage stage) {
+				stage.close();
+			}
+		})
 		.build()
 		.show();
 	}
@@ -19,6 +27,13 @@ public class DialogHelper {
 		.title(title)
 		.setText("#label_info", message)
 		.setImage("#imageview_tip", image)
+		.click("#btn_confirm", new OnClickListener() {
+
+			@Override
+			public void onClick(Stage stage) {
+				stage.close();
+			}
+		})
 		.build()
 		.show();
 	}
