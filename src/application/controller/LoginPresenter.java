@@ -11,9 +11,12 @@ import application.view.MainView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class LoginPresenter implements Initializable {
 
@@ -35,7 +38,10 @@ public class LoginPresenter implements Initializable {
 		if(username.equals("admin")){
 			L.d("登录成功！", null);
 			// 重设 scene的 布局
-			ap_login.getScene().setRoot(new MainView().getView());
+			Parent parent = new MainView().getView();
+
+			Stage stage = (Stage) ap_login.getScene().getWindow();
+			stage.setScene(new Scene(parent));// 重设Scene,否则不会自动修改大小。
 
 		}else{
 			DialogHelper.alert("提示", "登录失败！");

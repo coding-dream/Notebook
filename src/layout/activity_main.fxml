@@ -10,26 +10,29 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDropped="#dragDroppedFile" onDragOver="#dragOverFile" prefHeight="562.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
-   <children>
-		 <fx:include fx:id="menuBar" source="menu_main.fxml" />
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="504.0" prefWidth="818.0">
-        <items>
-          <AnchorPane fx:id="ap_left" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="253.0" prefWidth="570.0" />
-        </items>
-      </SplitPane>
-      <AnchorPane fx:id="ap_right" prefHeight="59.0" prefWidth="818.0">
-         <children>
-            <Label layoutX="542.0" layoutY="23.0" text="Copyright © 2017 Limitless 版权所有 " AnchorPane.rightAnchor="50.0">
-               <padding>
-                  <Insets bottom="8.0" top="8.0" />
-               </padding>
-            </Label>
-         </children>
-         <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-         </padding>
-      </AnchorPane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
+	<children>
+		<fx:include fx:id="menuBar" source="menu_main.fxml" />
+		<BorderPane prefHeight="539.0" prefWidth="818.0">
+			<top>
+				<AnchorPane prefHeight="35.0" prefWidth="818.0" BorderPane.alignment="CENTER" />
+			</top>
+			<left>
+				<AnchorPane fx:id="main_left" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+			</left>
+			<center>
+				<AnchorPane fx:id="main_center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+			</center>
+			<right>
+				<AnchorPane fx:id="main_right" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+			</right>
+			<bottom>
+				<AnchorPane fx:id="main_bottom" prefHeight="69.0" prefWidth="818.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="301.0" layoutY="12.0" prefHeight="41.0" prefWidth="267.0" text="Copyright © 2017 Limitless 版权所有 " />
+               </children>
+				</AnchorPane>
+			</bottom>
+		</BorderPane>
+	</children>
 </VBox>
