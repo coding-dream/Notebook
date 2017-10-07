@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="233.0" layoutY="81.0" prefHeight="56.0" prefWidth="149.0" text="Notebook">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.2" color="#792323">
+               <input>
+                  <Reflection />
+               </input>
+            </InnerShadow>
+         </effect>
+      </Label>
+      <ImageView fitHeight="82.0" fitWidth="182.0" layoutX="116.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/notebook.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="150.0" layoutY="193.0" text="用户名" />
+      <Label layoutX="150.0" layoutY="240.0" text="密   码" />
+      <TextField layoutX="231.0" layoutY="189.0" />
+      <TextField layoutX="231.0" layoutY="236.0" />
+      <Button defaultButton="true" layoutX="231.0" layoutY="292.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="55.0" text="登录" />
+      <Button cancelButton="true" layoutX="314.0" layoutY="292.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="55.0" text="重置" />
+   </children>
+</AnchorPane>
