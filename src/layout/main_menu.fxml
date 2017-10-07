@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</VBox>
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <menus>
+    <Menu mnemonicParsing="false" text=" 文件">
+      <items>
 
+	        <MenuItem mnemonicParsing="false" text=" 新建">
+				<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/new.png" /></image></ImageView></graphic>
+				<accelerator> <!-- 快捷键 -->
+				   <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+			   </accelerator>
+	        </MenuItem>
+            <MenuItem mnemonicParsing="false" text=" 打开">
+				<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/open.png" /></image></ImageView></graphic>
+            </MenuItem>
+
+            <SeparatorMenuItem mnemonicParsing="false" /> <!-- 分割线 -->
+            <MenuItem mnemonicParsing="false" text=" 退出软件" >
+            	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/exit.png" /></image></ImageView></graphic>
+            </MenuItem>
+      </items>
+    </Menu>
+      <Menu mnemonicParsing="false" text=" 工具">
+         <items>
+            <MenuItem mnemonicParsing="false" text=" 偏好设置">
+            	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/setting.png" /></image></ImageView></graphic>
+            </MenuItem>
+         </items>
+      </Menu>
+    <Menu mnemonicParsing="false" text=" 帮助">
+      <items>
+	       <MenuItem mnemonicParsing="false" text=" 关于软件  ">
+	           	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/about.png" /></image></ImageView></graphic>
+	       </MenuItem>
+            <MenuItem mnemonicParsing="false" text=" 使用说明 " />
+            <MenuItem mnemonicParsing="false" text=" 提交反馈 " />
+            <MenuItem mnemonicParsing="false" text=" 检查更新 ">
+            	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/update.png" /></image></ImageView></graphic>
+            </MenuItem>
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

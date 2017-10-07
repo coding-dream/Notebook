@@ -13,7 +13,6 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
 			VBox vBox = LayoutInflater.inflate("activity_main", VBox.class);
 			Button button = new Button("button");
 			button.setOnAction(e->{
