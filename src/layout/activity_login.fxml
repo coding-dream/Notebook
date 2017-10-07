@@ -7,7 +7,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane fx:id="ap_login" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginPresenter">
    <children>
       <Label layoutX="233.0" layoutY="81.0" prefHeight="56.0" prefWidth="149.0" text="Notebook">
@@ -29,9 +28,9 @@
       </ImageView>
       <Label layoutX="150.0" layoutY="193.0" text="用户名" />
       <Label layoutX="150.0" layoutY="240.0" text="密   码" />
-      <TextField fx:id="et_username" promptText="默认admin" layoutX="231.0" layoutY="189.0" />
-      <TextField fx:id="et_password" promptText="默认admin" layoutX="231.0" layoutY="236.0" />
-      <Button fx:id="btn_login" onAction="#login" defaultButton="true" layoutX="231.0" layoutY="292.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="55.0" text="登录" />
-      <Button fx:id="btn_reset" onAction="#reset" cancelButton="true" layoutX="314.0" layoutY="292.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="55.0" text="重置" />
+      <TextField fx:id="et_username" layoutX="231.0" layoutY="189.0" promptText="默认admin" text="admin"/>
+      <PasswordField fx:id="et_password" layoutX="231.0" layoutY="236.0" promptText="请输入密码" text="admin" />
+      <Button fx:id="btn_login" defaultButton="true" layoutX="231.0" layoutY="292.0" mnemonicParsing="false" onAction="#login" prefHeight="23.0" prefWidth="55.0" text="登录" />
+      <Button fx:id="btn_reset" cancelButton="true" layoutX="314.0" layoutY="292.0" mnemonicParsing="false" onAction="#reset" prefHeight="23.0" prefWidth="55.0" text="重置" />
    </children>
 </AnchorPane>
