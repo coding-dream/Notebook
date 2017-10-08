@@ -7,23 +7,22 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.image.ImageView?>
 
-<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuBarPresenter">
   <menus>
     <Menu mnemonicParsing="false" text=" 文件">
       <items>
-
-	        <MenuItem mnemonicParsing="false" text=" 新建">
+	        <MenuItem fx:id="menu_new" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 新建">
 				<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/new.png" /></image></ImageView></graphic>
 				<accelerator> <!-- 快捷键 -->
 				   <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 			   </accelerator>
 	        </MenuItem>
-            <MenuItem mnemonicParsing="false" text=" 打开">
+            <MenuItem fx:id="menu_open" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 打开">
 				<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/open.png" /></image></ImageView></graphic>
             </MenuItem>
 
             <SeparatorMenuItem mnemonicParsing="false" /> <!-- 分割线 -->
-            <MenuItem mnemonicParsing="false" text=" 退出软件" >
+            <MenuItem fx:id="menu_exit" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 退出软件" >
             	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/exit.png" /></image></ImageView></graphic>
             </MenuItem>
       </items>
