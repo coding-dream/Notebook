@@ -1,14 +1,10 @@
 package application.view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import application.dialog.LayoutInflater;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -25,6 +21,8 @@ public class MainView implements View {
 	@Override
 	public Parent getView() {
 			Parent parent = LayoutInflater.inflate("activity_main", Parent.class);
+			parent.getStylesheets().add("css/main.css");
+
 			AnchorPane main_left = (AnchorPane) parent.lookup("#main_left");
 			AnchorPane main_center = (AnchorPane) parent.lookup("#main_center");
 
@@ -44,7 +42,7 @@ public class MainView implements View {
 	                new TreeItem<String>("ÍË³ö")
 	                ));
 
-		    treeItemRoot.setExpanded(false);
+		    treeItemRoot.setExpanded(true);
 
 	        treeView.setShowRoot(true);
 	        treeView.setRoot(treeItemRoot);
@@ -52,18 +50,8 @@ public class MainView implements View {
 	        main_left.getChildren().add(treeView);
 
 			// right
-	        List<HBox> arraylist = new ArrayList<>();
-	        for(int i = 1; i <= 15; i++){
-	        	HBox hbox = LayoutInflater.inflate("item_article", HBox.class);
-	            arraylist.add(hbox);
-	        }
-
-	        ListView<HBox> listview = new ListView<>();
-	        listview.setMinWidth(500);
-	        ObservableList<HBox> data = FXCollections.observableArrayList(arraylist);
-	        listview.setItems(data);
-	        main_center.getChildren().add(listview);
-
+	        HBox lb_center = LayoutInflater.inflate("include_center", HBox.class);
+	        main_center.getChildren().add(lb_center);
 	        return parent;
 	}
 

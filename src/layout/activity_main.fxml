@@ -26,7 +26,7 @@
 			<right>
 				<AnchorPane fx:id="main_right" prefHeight="434.0" prefWidth="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="-5.0" layoutY="121.0" text="xx" />
+                  <Label layoutX="-5.0" layoutY="121.0" text="" />
                </children></AnchorPane>
 			</right>
 			<bottom>
