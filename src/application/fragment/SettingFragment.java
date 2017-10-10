@@ -2,11 +2,16 @@ package application.fragment;
 
 import application.view.View;
 
-public class ArticleFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
 	@Override
 	public void onCreate() {
 
+	}
+
+	@Override
+	public View onCreateView() {
+		return null;
 	}
 
 	@Override
@@ -15,18 +20,12 @@ public class ArticleFragment extends Fragment {
 	}
 
 	@Override
-	View onCreateView() {
-		return null;
-	}
-
-	@Override
 	String getLayout() {
-		return "fragment_article";
+		return "fragment_setting";
 	}
 
 	@Override
 	boolean isAdded() {
 		return false;
 	}
-
 }

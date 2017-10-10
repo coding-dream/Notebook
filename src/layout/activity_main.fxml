@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
 	<children>
@@ -21,7 +22,7 @@
 				<AnchorPane fx:id="main_left" prefHeight="434.0" prefWidth="197.0" BorderPane.alignment="CENTER" />
 			</left>
 			<center>
-				<AnchorPane fx:id="main_center" prefHeight="434.0" prefWidth="553.0" BorderPane.alignment="CENTER" />
+				<StackPane fx:id="main_center" prefHeight="434.0" prefWidth="553.0" BorderPane.alignment="CENTER" />
 			</center>
 			<right>
 				<AnchorPane fx:id="main_right" prefHeight="434.0" prefWidth="20.0" BorderPane.alignment="CENTER">

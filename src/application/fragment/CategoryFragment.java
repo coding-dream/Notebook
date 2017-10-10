@@ -18,4 +18,15 @@ public class CategoryFragment extends Fragment {
 	public void onDestroy() {
 
 	}
+
+	@Override
+	String getLayout() {
+		// TODO Auto-generated method stub
+		return "fragment_category";
+	}
+
+	@Override
+	boolean isAdded() {
+		return false;
+	}
 }

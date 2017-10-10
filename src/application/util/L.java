@@ -7,6 +7,12 @@ public class L {
 	private static final boolean DEBUG = true;
 	private static Logger logger = Logger.getLogger(L.class.getSimpleName());
 
+	public static void D(String msg){
+		if(DEBUG){
+			logger.log(Level.INFO, msg);
+		}
+	}
+
 	public static void d(String msg,Object [] params){
 		if(DEBUG){
 			logger.log(Level.INFO, msg, params);

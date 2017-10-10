@@ -6,25 +6,21 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import application.bean.Article;
-import application.bean.Result;
-import application.dao.ArticleDao;
 import application.dialog.LayoutInflater;
+import application.fragment.Fragment;
+import application.fragment.FragmentTransaction;
+import application.util.L;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
+import javafx.scene.layout.StackPane;
 
 public class MainView implements View {
 	private Map<String,Parent> viewMap = new HashMap<>();
@@ -35,9 +31,15 @@ public class MainView implements View {
 	private final ImageView twoIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_category.png")));
 	private final ImageView threeIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_setting.png")));
 
-	interface Callback{
-		void done();
-	}
+	private Fragment fragmentArticle;
+	private Fragment fragmentCategory;
+	private Fragment fragmentSetting;
+
+	private FragmentTransaction transaction = new FragmentTransaction();
+
+	private static final int FRAGMENT_ARTICLE = 1;
+	private static final int FRAGMENT_CATEGORY = 2;
+	private static final int FRAGMENT_SETTING = 3;
 
 	@Override
 	public Parent getView() {
@@ -45,7 +47,7 @@ public class MainView implements View {
 			parent.getStylesheets().add("css/main.css");
 
 			AnchorPane main_left = (AnchorPane) parent.lookup("#main_left");
-			AnchorPane main_center = (AnchorPane) parent.lookup("#main_center");
+			StackPane main_center = (StackPane) parent.lookup("#main_center");
 
 			// left
 			TreeView treeView = new TreeView();
@@ -74,28 +76,14 @@ public class MainView implements View {
 					Parent container = null;
 					switch (newValue.getValue()) {
 					case "文章管理":
-						container = replace(main_center,"include_center_article");
-						ListView<Article> listView = (ListView<Article>) container.lookup("#lv_article");
-						listView.setPrefWidth(100);
-						if(listView.getItems().size() == 0){
-							loadArticleData(1,new Callback() {
-
-								@Override
-								public void done() {
-
-
-								}
-							});
-						}
-
-
+						setSelection(main_center,FRAGMENT_ARTICLE);
 						break;
 					case "类别管理":
-						container = replace(main_center,"include_center_category");
+						setSelection(main_center, FRAGMENT_CATEGORY);
 
 						break;
 					case "系统管理":
-						container = replace(main_center,"include_center_setting");
+						setSelection(main_center, FRAGMENT_SETTING);
 						break;
 					case "退出":
 						Platform.exit();
@@ -108,75 +96,25 @@ public class MainView implements View {
 			});
 	        main_left.getChildren().add(treeView);
 
-			// right
-	        HBox lb_center = LayoutInflater.inflate("include_center", HBox.class);
-	        main_center.getChildren().add(lb_center);
 	        return parent;
 	}
 
-	protected void loadArticleData(int page, Callback callback) {
-		executor.execute(new Runnable() {
+	protected void setSelection(StackPane main_center, int layoutId) {
+		switch (layoutId) {
+		case FRAGMENT_ARTICLE:
+			L.D("FragmentArticle");
 
-			@Override
-			public void run() {
-				Result<Article> result = ArticleDao.getInstance().getPage(1);
-				Platform.runLater(new Runnable() {
+			break;
+		case FRAGMENT_CATEGORY:
+			L.D("FragmentCategory");
+			break;
+		case FRAGMENT_SETTING:
+			L.D("FragmentSetting");
+			break;
 
-					@Override
-					public void run() {
-						listView.getItems().addAll(result.recordList);
-						listView.setCellFactory(new Callback<ListView<Article>, ListCell<Article>>() {
-
-							@Override
-							public ListCell<Article> call(ListView<Article> listView) {
-
-								return new ListCell<Article>(){
-									private Label lb_id;
-									private Label lb_title;
-									private Label lb_update;
-									private Button btn_edit;
-									private Button btn_delete;
-
-									protected void updateItem(Article item, boolean empty) {
-										super.updateItem(item, empty);// 必须调用，否则错乱的bug
-										// ======================
-										Parent convertView = null;
-										if(getGraphic() == null){
-											convertView = LayoutInflater.inflate("item_article", Parent.class);
-											lb_id = (Label) convertView.lookup("#lb_id");
-											lb_title = (Label) convertView.lookup("#lb_title");
-											lb_update = (Label) convertView.lookup("#lb_update");
-											btn_edit = (Button) convertView.lookup("#btn_edit");
-											btn_delete = (Button) convertView.lookup("#btn_delete");
-
-										}else{
-											convertView = (Parent) getGraphic().lookup("#root");
-										}
-
-										if(empty){
-											setText(null);
-											setGraphic(null);
-										}else{
-											lb_id.textProperty().setValue(item.getId() + "");
-											lb_title.textProperty().setValue(item.getTitle());
-											lb_update.textProperty().setValue(item.getUpdateTime());
-											lb_id.setText(item.getId()+"");
-											lb_title.setText(item.getTitle());
-											lb_update.setText(item.getUpdateTime());
-											// setText(null);
-											setGraphic(convertView);
-										}
-										// ======================
-									};
-								};
-							}
-						});
-
-
-					}
-				});
-			}
-		});
+		default:
+			break;
+		}
 	}
 
 	protected Parent replace(AnchorPane main_center,String key) {
