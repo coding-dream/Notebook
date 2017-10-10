@@ -12,7 +12,6 @@ import application.fragment.CategoryFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
-import application.util.L;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +21,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 public class MainView implements View {
@@ -133,9 +131,9 @@ public class MainView implements View {
 	private void toFragment(StackPane main_center,Fragment to) {
 		if(lastFragment == to) return;
 		if(!to.isAdded()){
-			transaction.hide(lastFragment).add(main_center,to).commit();
+			transaction.hide(lastFragment).add(main_center,to);
 		}else{
-			transaction.hide(lastFragment).show(to).commit();
+			transaction.hide(lastFragment).show(to);
 		}
 		lastFragment = to;
 	}

@@ -1,16 +1,19 @@
 package application.fragment;
 
-import application.view.View;
+import java.util.Map;
+
+import javafx.scene.Parent;
 
 public class SettingFragment extends Fragment {
 
 	@Override
-	public void onCreate() {
+	public void onCreate(Map<String, String> bundle) {
 
 	}
 
 	@Override
-	public View onCreateView() {
+	public Parent onCreateView(Map<String, String> bundle) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -20,12 +23,12 @@ public class SettingFragment extends Fragment {
 	}
 
 	@Override
-	String getLayout() {
+	public String getLayout() {
 		return "fragment_setting";
 	}
 
 	@Override
-	boolean isAdded() {
+	public boolean isAdded() {
 		return false;
 	}
 }
