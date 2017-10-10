@@ -7,8 +7,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import application.dialog.LayoutInflater;
+import application.fragment.ArticleFragment;
+import application.fragment.CategoryFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
+import application.fragment.SettingFragment;
 import application.util.L;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -34,6 +37,8 @@ public class MainView implements View {
 	private Fragment fragmentArticle;
 	private Fragment fragmentCategory;
 	private Fragment fragmentSetting;
+
+	private Fragment lastFragment;
 
 	private FragmentTransaction transaction = new FragmentTransaction();
 
@@ -80,7 +85,6 @@ public class MainView implements View {
 						break;
 					case "类别管理":
 						setSelection(main_center, FRAGMENT_CATEGORY);
-
 						break;
 					case "系统管理":
 						setSelection(main_center, FRAGMENT_SETTING);
@@ -94,27 +98,46 @@ public class MainView implements View {
 				}
 
 			});
-	        main_left.getChildren().add(treeView);
 
+	        main_left.getChildren().add(treeView);
+	        setSelection(main_center, FRAGMENT_ARTICLE);// 主界面默认的Fragment
 	        return parent;
 	}
 
 	protected void setSelection(StackPane main_center, int layoutId) {
 		switch (layoutId) {
 		case FRAGMENT_ARTICLE:
-			L.D("FragmentArticle");
-
+			if(fragmentArticle == null){
+				fragmentArticle = new ArticleFragment();
+			}
+			toFragment(main_center,fragmentArticle);
 			break;
 		case FRAGMENT_CATEGORY:
-			L.D("FragmentCategory");
+			if(fragmentCategory == null){
+				fragmentCategory = new CategoryFragment();
+			}
+			toFragment(main_center,fragmentCategory);
 			break;
 		case FRAGMENT_SETTING:
-			L.D("FragmentSetting");
+			if(fragmentSetting == null){
+				fragmentSetting = new SettingFragment();
+			}
+			toFragment(main_center,fragmentCategory);
 			break;
 
 		default:
 			break;
 		}
+	}
+
+	private void toFragment(StackPane main_center,Fragment to) {
+		if(lastFragment == to) return;
+		if(!to.isAdded()){
+			transaction.hide(lastFragment).add(main_center,to).commit();
+		}else{
+			transaction.hide(lastFragment).show(to).commit();
+		}
+		lastFragment = to;
 	}
 
 	protected Parent replace(AnchorPane main_center,String key) {

@@ -1,20 +1,29 @@
 package application.fragment;
 
+import javafx.scene.layout.StackPane;
+
 public class FragmentTransaction {
 
-	public void show(){
-
+	public FragmentTransaction add(StackPane main_center, Fragment to) {
+		return this;
 	}
 
-	public void hide(){
+	public FragmentTransaction show(Fragment to){
 
+		return this;
 	}
 
-	public void replace(){
+	public FragmentTransaction hide(Fragment lastFragment){
 
+		return this;
+	}
+
+	public void replace(StackPane main_center,Fragment fragment){
+		// not implement
 	}
 
 	public void commit(){
 
 	}
+
 }
