@@ -12,33 +12,17 @@ public class ArticleFragment extends Fragment {
 	}
 
 	@Override
-	public Parent onCreateView(Map<String, String> bundle) {
-
-		return null;
-	}
-
-	@Override
 	public String getLayout() {
 		return "fragment_article";
 	}
 
 	@Override
-	public boolean isAdded() {
-		return false;
-	}
-
-	@Override
-	public void show() {
-		this.node.setVisible(true);
-	}
-
-	@Override
-	public void hide() {
-		this.node.setVisible(false);
-	}
-
-	@Override
 	public void onDestroy() {
+		System.out.println("=====> onDestroy");
+	}
+
+	@Override
+	public void initData(Parent node, Map<String, String> bundle) {
 
 	}
 }

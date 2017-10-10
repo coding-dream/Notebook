@@ -12,12 +12,6 @@ public class SettingFragment extends Fragment {
 	}
 
 	@Override
-	public Parent onCreateView(Map<String, String> bundle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void onDestroy() {
 
 	}
@@ -28,7 +22,8 @@ public class SettingFragment extends Fragment {
 	}
 
 	@Override
-	public boolean isAdded() {
-		return false;
+	public void initData(Parent node, Map<String, String> bundle) {
+		// TODO Auto-generated method stub
+
 	}
 }

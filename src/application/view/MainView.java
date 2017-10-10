@@ -1,14 +1,11 @@
 package application.view;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import application.dialog.LayoutInflater;
 import application.fragment.ArticleFragment;
 import application.fragment.CategoryFragment;
+import application.fragment.DefaultFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
@@ -24,14 +21,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class MainView implements View {
-	private Map<String,Parent> viewMap = new HashMap<>();
-	public ExecutorService executor = Executors.newCachedThreadPool();
-
 	private final ImageView rootIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_root.png")));
 	private final ImageView oneIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_article.png")));
 	private final ImageView twoIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_category.png")));
 	private final ImageView threeIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_setting.png")));
 
+	private Fragment fragmentDefalt;
 	private Fragment fragmentArticle;
 	private Fragment fragmentCategory;
 	private Fragment fragmentSetting;
@@ -98,7 +93,7 @@ public class MainView implements View {
 			});
 
 	        main_left.getChildren().add(treeView);
-	        setSelection(main_center, FRAGMENT_ARTICLE);// 主界面默认的Fragment
+	        intSelection(main_center);
 	        return parent;
 	}
 
@@ -138,17 +133,10 @@ public class MainView implements View {
 		lastFragment = to;
 	}
 
-	protected Parent replace(AnchorPane main_center,String key) {
-		main_center.getChildren().clear();
-		Parent parent = null;
-		if(viewMap.containsKey(key)){
-			parent = viewMap.get(key);
-		}else{
-			parent = LayoutInflater.inflate(key, Parent.class);
-			viewMap.put(key, parent);
-		}
-		main_center.getChildren().add(parent);
-		return parent;
+	private void intSelection(StackPane main_center) {
+		//主界面默认的Fragment
+		fragmentDefalt = new DefaultFragment();
+		transaction.add(main_center, fragmentDefalt);
+		lastFragment = fragmentDefalt;
 	}
-
 }

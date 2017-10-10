@@ -46,8 +46,7 @@ public class LoginPresenter implements Initializable {
 			Stage stage = (Stage) ap_login.getScene().getWindow();
 			stage.setScene(new Scene(parent));// 重设Scene,否则不会自动修改大小。
 			stage.setOnCloseRequest(e->{
-				mainView.executor.shutdown();// 必须关闭线程池,否则程序即使调用Platform.exit()也不会自动退出
-				Platform.exit();
+				Platform.exit();// 如果有线程池,必须关闭线程池,否则程序即使调用Platform.exit()也不会自动退出
 			});
 		}else{
 			DialogHelper.alert("提示", "登录失败！");

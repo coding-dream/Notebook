@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javafx.scene.Parent;
 
-public class CategoryFragment extends Fragment {
+public class DefaultFragment extends Fragment {
 
 	@Override
 	public void onCreate(Map<String, String> bundle) {
@@ -12,19 +12,17 @@ public class CategoryFragment extends Fragment {
 	}
 
 	@Override
-	public void onDestroy() {
-
+	public String getLayout() {
+		return "fragment_default";
 	}
 
 	@Override
-	public String getLayout() {
-		// TODO Auto-generated method stub
-		return "fragment_category";
+	public void onDestroy() {
+		System.out.println("=====> onDestroy");
 	}
 
 	@Override
 	public void initData(Parent node, Map<String, String> bundle) {
-		// TODO Auto-generated method stub
 
 	}
 }
