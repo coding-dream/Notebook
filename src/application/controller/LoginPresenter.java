@@ -8,6 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import application.dialog.DialogHelper;
 import application.util.L;
 import application.view.MainView;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +39,16 @@ public class LoginPresenter implements Initializable {
 		if(username.equals("admin")){
 			L.d("登录成功！", null);
 			// 重设 scene的 布局
-			Parent parent = new MainView().getView();
+			MainView mainView = new MainView();
+
+			Parent parent = mainView .getView();
 
 			Stage stage = (Stage) ap_login.getScene().getWindow();
 			stage.setScene(new Scene(parent));// 重设Scene,否则不会自动修改大小。
-
+			stage.setOnCloseRequest(e->{
+				mainView.executor.shutdown();// 必须关闭线程池,否则程序即使调用Platform.exit()也不会自动退出
+				Platform.exit();
+			});
 		}else{
 			DialogHelper.alert("提示", "登录失败！");
 			et_username.setText("");

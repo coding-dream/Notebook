@@ -3,12 +3,20 @@ package application.view;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import application.bean.Article;
+import application.bean.Result;
+import application.dao.ArticleDao;
 import application.dialog.LayoutInflater;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -16,9 +24,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 public class MainView implements View {
 	private Map<String,Parent> viewMap = new HashMap<>();
+	public ExecutorService executor = Executors.newCachedThreadPool();
 
 	private final ImageView rootIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_root.png")));
 	private final ImageView oneIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_article.png")));
@@ -57,13 +67,81 @@ public class MainView implements View {
 				@Override
 				public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue,
 						TreeItem<String> newValue) {
-					Parent container = null;
 					switch (newValue.getValue()) {
 					case "文章管理":
-						container = replace(main_center,"include_center_article");
+						// findAll
+						executor.execute(new Runnable() {
+
+							@Override
+							public void run() {
+								Result<Article> result = ArticleDao.getInstance().getPage(1);
+								Platform.runLater(new Runnable() {
+
+									@Override
+									public void run() {
+										Parent container = null;
+										container = replace(main_center,"include_center_article");
+										ListView<Article> listView = (ListView<Article>) container.lookup("#lv_article");
+										listView.setPrefWidth(100);
+										listView.getItems().clear();// clear
+										listView.getItems().addAll(result.recordList);
+										listView.setCellFactory(new Callback<ListView<Article>, ListCell<Article>>() {
+
+											@Override
+											public ListCell<Article> call(ListView<Article> listView) {
+
+												return new ListCell<Article>(){
+													private Label lb_id;
+													private Label lb_title;
+													private Label lb_update;
+													private Button btn_edit;
+													private Button btn_delete;
+
+													protected void updateItem(Article item, boolean empty) {
+														super.updateItem(item, empty);// 必须调用，否则错乱的bug
+														// ======================
+														Parent convertView = null;
+														if(getGraphic() == null){
+															convertView = LayoutInflater.inflate("item_article", Parent.class);
+															lb_id = (Label) convertView.lookup("#lb_id");
+															lb_title = (Label) convertView.lookup("#lb_title");
+															lb_update = (Label) convertView.lookup("#lb_update");
+															btn_edit = (Button) convertView.lookup("#btn_edit");
+															btn_delete = (Button) convertView.lookup("#btn_delete");
+
+														}else{
+															convertView = (Parent) getGraphic().lookup("#root");
+														}
+
+														if(empty){
+															setText(null);
+															setGraphic(null);
+														}else{
+															lb_id.textProperty().setValue(item.getId() + "");
+															lb_title.textProperty().setValue(item.getTitle());
+															lb_update.textProperty().setValue(item.getUpdateTime());
+															lb_id.setText(item.getId()+"");
+															lb_title.setText(item.getTitle());
+															lb_update.setText(item.getUpdateTime());
+															// setText(null);
+															setGraphic(convertView);
+														}
+														// ======================
+													};
+												};
+											}
+										});
+
+
+									}
+								});
+							}
+						});
+
 						break;
 					case "类别管理":
-						container = replace(main_center,"include_center_category");
+						Parent container = replace(main_center,"include_center_category");
+
 						break;
 					case "系统管理":
 						container = replace(main_center,"include_center_setting");

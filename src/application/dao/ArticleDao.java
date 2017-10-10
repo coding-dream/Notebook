@@ -31,8 +31,8 @@ public class ArticleDao implements BaseDao<Article> {
     }
 
     private void createTable() {
-        String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text)", tableName);
-        DBHelper.execSQL(sql, null);
+    	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text)", tableName);
+	     DBHelper.execSQL(sql, null);
     }
 
     public void dropTable() {
@@ -65,7 +65,7 @@ public class ArticleDao implements BaseDao<Article> {
 
 	@Override
 	public Article getById(Long id) {
-		String sql = String.format("select * from %s where id = ?", tableName);
+		String sql = String.format("select * from %s where id = ? ", tableName);
 		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, new String[] { id + "" });
 		Article article = null;
 		if(results.size() > 0){
@@ -83,7 +83,7 @@ public class ArticleDao implements BaseDao<Article> {
 	@Override
 	public List<Article> findAll() {
 		List<Article> list = new ArrayList<Article>();
-		String sql = String.format("select * from %s", tableName);
+		String sql = String.format("select * from %s order by id", tableName);
 		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
 		for(Map<String,String> result : results){
 			Article info = new Article();
@@ -102,7 +102,7 @@ public class ArticleDao implements BaseDao<Article> {
 		List<Article> list = new ArrayList<Article>();
 
 		int firstResult = (currentPage - 1) * Constants.PAGE_SIZE;
-		String sql = String.format("select * from %s order by updateTime limit %d,%d", tableName,firstResult,Constants.PAGE_SIZE);
+		String sql = String.format("select * from %s order by id limit %d,%d", tableName,firstResult,Constants.PAGE_SIZE);
 		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
 		for(Map<String,String> result : results){
 			Article info = new Article();

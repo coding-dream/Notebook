@@ -5,6 +5,7 @@ import java.util.List;
 import application.bean.Result;
 
 public interface BaseDao<T> {
+
     void save(T entity);
 
     void delete(Long id);
