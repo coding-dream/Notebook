@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label blendMode="DIFFERENCE" prefHeight="23.0" prefWidth="100.0" text="文章管理" textFill="#4b9ae4">
+         <VBox.margin>
+            <Insets bottom="16.0" />
+         </VBox.margin>
+         <effect>
+            <Reflection>
+               <input>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </Reflection>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button defaultButton="true" mnemonicParsing="false" text="修改" />
+            <Button cancelButton="true" mnemonicParsing="false" text="删除" />
+        </items>
+      </ToolBar>
+      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="568.0">
+         <children>
+            <TextField />
+            <Button defaultButton="true" mnemonicParsing="false" text="搜索">
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <ListView fx:id="lv_article" prefHeight="217.0" prefWidth="568.0" />
+      <Pagination prefHeight="64.0" prefWidth="568.0" />
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>
