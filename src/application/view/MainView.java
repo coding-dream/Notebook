@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import application.dialog.LayoutInflater;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
@@ -56,18 +57,19 @@ public class MainView implements View {
 				@Override
 				public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue,
 						TreeItem<String> newValue) {
+					Parent container = null;
 					switch (newValue.getValue()) {
 					case "文章管理":
-						listArticle(main_center);
+						container = replace(main_center,"include_center_article");
 						break;
 					case "类别管理":
-						listCategory(main_center);
+						container = replace(main_center,"include_center_category");
 						break;
 					case "系统管理":
-
+						container = replace(main_center,"include_center_setting");
 						break;
 					case "退出":
-
+						Platform.exit();
 						break;
 					default:
 						break;
@@ -83,10 +85,9 @@ public class MainView implements View {
 	        return parent;
 	}
 
-	protected void listCategory(AnchorPane main_center) {
+	protected Parent replace(AnchorPane main_center,String key) {
 		main_center.getChildren().clear();
 		Parent parent = null;
-		String key = "include_center_category";
 		if(viewMap.containsKey(key)){
 			parent = viewMap.get(key);
 		}else{
@@ -94,21 +95,7 @@ public class MainView implements View {
 			viewMap.put(key, parent);
 		}
 		main_center.getChildren().add(parent);
-	}
-
-	protected void listArticle(AnchorPane main_center) {
-		main_center.getChildren().clear();
-		Parent parent = null;
-		String key = "include_center_article";
-		if(viewMap.containsKey(key)){
-			parent = viewMap.get(key);
-		}else{
-			parent = LayoutInflater.inflate(key, Parent.class);
-			viewMap.put(key, parent);
-		}
-		ListView listView = (ListView) parent.lookup("#lv_article");
-		listView.setPrefWidth(200);
-		main_center.getChildren().add(parent);
+		return parent;
 	}
 
 }
