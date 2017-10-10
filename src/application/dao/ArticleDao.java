@@ -135,4 +135,22 @@ public class ArticleDao implements BaseDao<Article> {
 	public Class getEntityClass() {
 		return Article.class;
 	}
+
+	@Override
+	public List<Article> search(String text) {
+		String query = "%" + text + "%";
+		List<Article> list = new ArrayList<Article>();
+		String sql = String.format("select * from %s where title like '%s' order by id", tableName,query);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		for(Map<String,String> result : results){
+			Article info = new Article();
+        	info.setId(Long.parseLong(result.get("id")));
+        	info.setTitle(result.get("title"));
+        	info.setContent(result.get("content"));
+        	info.setCreateTime(result.get("createTime".toLowerCase()));
+        	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	list.add(info);
+        }
+		return list;
+	}
 }

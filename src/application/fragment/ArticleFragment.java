@@ -24,6 +24,7 @@ public class ArticleFragment extends Fragment {
 	private Pagination pager_article;
 	private Button btn_search;
 	private TextField et_input;
+
 	private boolean FIRST = true;
 
 	@Override
@@ -49,7 +50,9 @@ public class ArticleFragment extends Fragment {
 		btn_search = (Button) node.lookup("#btn_search");
 
 		btn_search.setOnAction(e->{
-			System.out.println("search " + et_input.getText());
+			List<Article> list = ArticleDao.getInstance().search(et_input.getText());
+			System.out.println(list);
+
 		});
 
 		pager_article = (Pagination) node.lookup("#pager_article");

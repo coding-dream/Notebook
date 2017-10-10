@@ -45,4 +45,12 @@ public class DialogHelper {
 		.build()
 		.show();
 	}
+
+	public static void progressbar() {
+		new AlertDialog.Builder()
+		.view("dialog_progressbar")
+		.title("数据加载中")
+		.build()
+		.show();
+	}
 }

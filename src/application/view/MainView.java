@@ -115,7 +115,7 @@ public class MainView implements View {
 			if(fragmentSetting == null){
 				fragmentSetting = new SettingFragment();
 			}
-			toFragment(main_center,fragmentCategory);
+			toFragment(main_center,fragmentSetting);
 			break;
 
 		default:

@@ -21,4 +21,6 @@ public interface BaseDao<T> {
     Result<T> getPage(int currentPage);
 
     int count();
+
+    List<T> search(String text);
 }
