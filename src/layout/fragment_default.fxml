@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
@@ -8,9 +7,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="84.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Default界面" />
+      <ImageView fitHeight="67.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/welcome.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="32.0" />
+         </HBox.margin>
+      </ImageView>
+
+   <Label prefHeight="84.0" prefWidth="190.0" text="欢迎光临" textFill="#60c8f5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <font>
+         <Font name="Andalus" size="24.0" />
+      </font>
+      <padding>
+         <Insets left="16.0" />
+      </padding>
+   </Label>
    </children>
-</HBox>
+      </HBox>

@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainPresenter">
 	<children>
 		<fx:include fx:id="menuBar" source="menu_main.fxml" />
 		<BorderPane prefHeight="539.0" prefWidth="818.0">
@@ -22,13 +22,10 @@
 				<AnchorPane fx:id="main_left" prefHeight="434.0" prefWidth="197.0" BorderPane.alignment="CENTER" />
 			</left>
 			<center>
-				<StackPane fx:id="main_center" prefHeight="434.0" prefWidth="553.0" BorderPane.alignment="CENTER" />
+				<StackPane fx:id="main_center" prefHeight="435.0" prefWidth="800" BorderPane.alignment="CENTER" />
 			</center>
 			<right>
-				<AnchorPane fx:id="main_right" prefHeight="434.0" prefWidth="20.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="-5.0" layoutY="121.0" text="" />
-               </children></AnchorPane>
+				<AnchorPane fx:id="main_right" prefHeight="434.0" prefWidth="1.0" BorderPane.alignment="CENTER" />
 			</right>
 			<bottom>
 				<AnchorPane fx:id="main_bottom" prefHeight="69.0" prefWidth="818.0" BorderPane.alignment="CENTER">

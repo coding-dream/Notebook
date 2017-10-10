@@ -8,8 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label blendMode="DIFFERENCE" prefHeight="23.0" prefWidth="100.0" text="文章管理" textFill="#4b9ae4">
          <VBox.margin>
@@ -33,24 +32,18 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-          <Button defaultButton="true" mnemonicParsing="false" text="修改" />
-            <Button cancelButton="true" mnemonicParsing="false" text="删除" />
-        </items>
-      </ToolBar>
-      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="568.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="800.0">
          <children>
-            <TextField />
-            <Button defaultButton="true" mnemonicParsing="false" text="搜索">
+            <TextField fx:id="et_input" />
+            <Button fx:id="btn_search" defaultButton="true" mnemonicParsing="false" text="搜索">
                <HBox.margin>
                   <Insets left="16.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <ListView fx:id="lv_article" prefHeight="217.0" prefWidth="568.0" />
-      <Pagination prefHeight="64.0" prefWidth="568.0" />
+      <ListView fx:id="lv_article" prefHeight="289.0" prefWidth="800.0" />
+      <Pagination fx:id="pager_article" prefHeight="64.0" prefWidth="800.0" />
    </children>
    <padding>
       <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
