@@ -1,5 +1,5 @@
 # Notebook
-Notebook
+Notebook 一款JavaFX编写的博客管理系统，暂未完成！
 
 ![](screenshots/2.png)
 ![](screenshots/3.png)
