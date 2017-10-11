@@ -1,15 +1,15 @@
 package application.test;
 
 import java.util.List;
-import java.util.Random;
 
 import application.bean.Article;
 import application.bean.Result;
 import application.dao.ArticleDao;
 
-public class DaoTest {
+public class ArticleDaoTest {
 	public static void main(String[] args) {
-//		save(30);
+//		save(5,1L);
+//		save(5,2L);
 //		delete(1L);
 //		update();
 //		get(4L);
@@ -17,36 +17,37 @@ public class DaoTest {
 //		getPage(1);
 	}
 
-	private static void getPage(int page) {
+	public static void getPage(int page) {
 		Result<Article> result = ArticleDao.getInstance().getPage(page);
 		System.out.println(result);
 	}
 
-	private static void update() {
+	public static void update() {
 		Article article = get(4L);
-		article.setTitle("change 4L title");
+		article.setTitle("文章4: update");
 		ArticleDao.getInstance().update(article);
 	}
 
-	private static Article get(Long id) {
+	public static Article get(Long id) {
 		Article article = ArticleDao.getInstance().getById(id);
 		return article;
 	}
 
-	private static void delete(Long id) {
+	public static void delete(Long id) {
 		ArticleDao.getInstance().delete(id);
 	}
 
-	private static void save(int size) {
+	public static void save(int size,Long categoryId) {
 		for(int i = 0;i < size;i++){
 			Article entity = new Article();
-			entity.setTitle("第一篇文章" + new Random().nextInt(100));
+			entity.setTitle("文章 : " + (i+1));
 			entity.setContent("Hello Jack,I love you so much!");
+			entity.setCategoryId(categoryId);
 			ArticleDao.getInstance().save(entity);
 		}
 	}
 
-	private static void list() {
+	public static void list() {
 		List<Article> list = ArticleDao.getInstance().findAll();
 		for(Article article : list){
 			System.out.println(article);

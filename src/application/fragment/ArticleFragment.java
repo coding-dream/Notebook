@@ -6,23 +6,28 @@ import java.util.Map;
 import application.bean.Article;
 import application.bean.Result;
 import application.dao.ArticleDao;
+import application.dialog.AlertDialog;
 import application.dialog.LayoutInflater;
+import application.util.L;
 import application.util.ThreadUtils;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
+import javafx.scene.web.HTMLEditor;
 import javafx.util.Callback;
 
 public class ArticleFragment extends Fragment {
 	private ListView<Article> listView;
 	private Pagination pager_article;
 	private Button btn_search;
+	private Button btn_new;
 	private TextField et_input;
 
 	private boolean FIRST = true;
@@ -48,6 +53,7 @@ public class ArticleFragment extends Fragment {
 
 		et_input = (TextField) node.lookup("#et_input");
 		btn_search = (Button) node.lookup("#btn_search");
+		btn_new = (Button) node.lookup("#btn_new");
 
 		btn_search.setOnAction(e->{
 			List<Article> list = ArticleDao.getInstance().search(et_input.getText());
@@ -55,11 +61,57 @@ public class ArticleFragment extends Fragment {
 
 		});
 
+		btn_new.setOnAction(e->{
+			AlertDialog.Builder builder = new AlertDialog.Builder();
+			builder.title("添加文章");
+			builder.view("dialog_add")
+			.build();
+			AlertDialog alertDialog = builder.build();
+			HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
+			ChoiceBox<String> choiceBox = alertDialog.findView("#choiceBox", ChoiceBox.class);
+			Button btn_confirm = alertDialog.findView("#btn_confirm", Button.class);
+			Button btn_cancel = alertDialog.findView("#btn_cancel", Button.class);
+			Label lb_category = alertDialog.findView("#lb_category", Label.class);
+			Label lb_error = alertDialog.findView("#lb_error", Label.class);
+			TextField et_title = alertDialog.findView("#et_title", TextField.class);
+
+			btn_confirm.setOnAction(ee ->{
+				String title = et_title.getText();
+				String category = lb_category.getText();
+				String content = htmlEditor.getHtmlText();
+
+				if(title.equals("") || content.equals("")){
+					lb_error.setText("标题或内容不能为空!");
+					return;
+				}else{
+					lb_error.setText("");
+				}
+
+				Article article = new Article();
+				article.setTitle(title);
+				article.setContent(content);
+				ArticleDao.getInstance().save(article);
+				alertDialog.close();
+			});
+
+			btn_cancel.setOnAction(eee->{
+				alertDialog.close();
+			});
+
+			lb_category.textProperty().bind(choiceBox.valueProperty());
+
+		    choiceBox.getItems().addAll("Dog", "Cat", "Horse");
+
+		    choiceBox.getSelectionModel().selectFirst();
+			alertDialog.show();
+
+		});
+
 		pager_article = (Pagination) node.lookup("#pager_article");
 		pager_article.setCurrentPageIndex(0);
 		pager_article.setVisible(false);
 //		pager_article.setPageCount(result.pageCount);
-//		pager_article.setPageCount(Pagination.INDETERMINATE);// 无限页模式,注意如果Pagination在显示后设置setPageCount则会导致call调用2次，所以这里用了一个FIRST变量控。
+//		pager_article.setPageCount(Pagination.INDETERMINATE);// 无限页模式,注意如果 setPageCount.的页数更新,则会多调用一次Node  call(0);不影响结果。
 		pager_article.setPageFactory(new Callback<Integer, Node>() {
 
 			@Override
@@ -69,6 +121,7 @@ public class ArticleFragment extends Fragment {
 				if (pageIndex >= 0 ) {
 					content = new Label("当前页: " + (pageIndex + 1));
 				}
+				L.D("pageIndex " + pageIndex);
 				loadData(pageIndex + 1);
 				return content;
 			}
@@ -103,6 +156,10 @@ public class ArticleFragment extends Fragment {
 							lb_update = (Label) convertView.lookup("#lb_update");
 							btn_edit = (Button) convertView.lookup("#btn_edit");
 							btn_delete = (Button) convertView.lookup("#btn_delete");
+							btn_delete.setOnAction(e->{
+								ArticleDao.getInstance().delete(item.getId());// delete database
+								listView.getItems().remove(item);// remove listItem
+							});
 
 						}else{
 							convertView = (Parent) getGraphic().lookup("#root");
@@ -138,8 +195,8 @@ public class ArticleFragment extends Fragment {
 				List<Article> datas = result.recordList;
 				listView.getItems().addAll(datas);
 
+				pager_article.setPageCount(result.pageCount);// 注意页数的动态变化
 				if(FIRST){
-					pager_article.setPageCount(result.pageCount);
 					pager_article.setVisible(true);
 					FIRST = false;
 				}

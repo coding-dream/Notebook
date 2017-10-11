@@ -12,6 +12,8 @@ public class Article {
 
 	private String updateTime;
 
+	private Long categoryId;
+
 	public Long getId() {
 		return id;
 	}
@@ -52,10 +54,17 @@ public class Article {
 		this.updateTime = updateTime;
 	}
 
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "]";
+				+ ", updateTime=" + updateTime + ", categoryId=" + categoryId + "]";
 	}
-
 }

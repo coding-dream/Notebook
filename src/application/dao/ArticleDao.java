@@ -11,6 +11,7 @@ import application.bean.Article;
 import application.bean.Result;
 import application.db.BaseDao;
 import application.db.DBHelper;
+import application.util.L;
 
 public class ArticleDao implements BaseDao<Article> {
 	private String tableName = getEntityClass().getSimpleName();
@@ -31,21 +32,23 @@ public class ArticleDao implements BaseDao<Article> {
     }
 
     private void createTable() {
-    	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text)", tableName);
+    	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text,categoryId integer,foreign key (categoryId) references Category(id) on delete cascade on update cascade)", tableName);
 	     DBHelper.execSQL(sql, null);
+	     L.D("createTable success");
     }
 
     public void dropTable() {
     	String sql = String.format("drop table if exists %s", tableName);
     	DBHelper.execSQL(sql, null);
+    	L.D("dropTable success");
     }
 
 	@Override
 	public void save(Article entity) {
 		Date date = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String[] params = new String[] { entity.getTitle(), entity.getContent(), sf.format(date),sf.format(date) };
-		String sql = String.format("insert into %s(title,content,createTime,updateTime) values(?,?,?,?)", tableName);
+		String[] params = new String[] { entity.getTitle(), entity.getContent(), sf.format(date),sf.format(date),entity.getCategoryId() + "" };
+		String sql = String.format("insert into %s(title,content,createTime,updateTime,categoryId) values(?,?,?,?,?)", tableName);
 		DBHelper.execSQL(sql, params);
 	}
 
@@ -53,14 +56,16 @@ public class ArticleDao implements BaseDao<Article> {
 	public void delete(Long id) {
 		String sql = String.format("delete from %s where id = ?", tableName);
 		DBHelper.execSQL(sql, new String[] { id + "" });
+		L.D(id + " delete success");
 	}
 
 	@Override
 	public void update(Article entity) {
 		Date date = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String sql = String.format("update %s set title = ?, content = ?, updateTime = ? where id = ?", tableName);
-		DBHelper.execSQL(sql, new String[] { entity.getTitle(), entity.getContent(), sf.format(date), entity.getId() + ""});
+		String sql = String.format("update %s set title = ?, content = ?, updateTime = ?,categoryId = ? where id = ?", tableName);
+		DBHelper.execSQL(sql, new String[] { entity.getTitle(), entity.getContent(), sf.format(date),entity.getCategoryId() + "", entity.getId() + ""});
+		L.D("update success");
 	}
 
 	@Override
@@ -76,6 +81,7 @@ public class ArticleDao implements BaseDao<Article> {
 			article.setContent(result.get("content"));
 			article.setCreateTime(result.get("createTime".toLowerCase()));
 			article.setUpdateTime(result.get("updateTime".toLowerCase()));
+			article.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
 		}
 		return article;
 	}
@@ -85,13 +91,15 @@ public class ArticleDao implements BaseDao<Article> {
 		List<Article> list = new ArrayList<Article>();
 		String sql = String.format("select * from %s order by id", tableName);
 		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		Article info = null;
 		for(Map<String,String> result : results){
-			Article info = new Article();
+			info = new Article();
         	info.setId(Long.parseLong(result.get("id")));
         	info.setTitle(result.get("title"));
         	info.setContent(result.get("content"));
         	info.setCreateTime(result.get("createTime".toLowerCase()));
         	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	info.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
         	list.add(info);
         }
 		return list;
@@ -111,6 +119,7 @@ public class ArticleDao implements BaseDao<Article> {
         	info.setContent(result.get("content"));
         	info.setCreateTime(result.get("createTime".toLowerCase()));
         	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	info.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
         	list.add(info);
         }
 
@@ -149,6 +158,7 @@ public class ArticleDao implements BaseDao<Article> {
         	info.setContent(result.get("content"));
         	info.setCreateTime(result.get("createTime".toLowerCase()));
         	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	info.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
         	list.add(info);
         }
 		return list;

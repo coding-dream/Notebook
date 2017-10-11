@@ -40,6 +40,11 @@
                   <Insets left="16.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="btn_new" defaultButton="true" mnemonicParsing="false" text="新建">
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
       <ListView fx:id="lv_article" prefHeight="289.0" prefWidth="800.0" />
