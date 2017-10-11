@@ -19,9 +19,10 @@
       <Button fx:id="btn_confirm" defaultButton="true" layoutX="405.0" layoutY="359.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="57.0" text="提交" />
       <Label layoutX="25.0" layoutY="7.0" text="类别" />
       <ChoiceBox fx:id="choiceBox" layoutX="64.0" layoutY="3.0" prefWidth="150.0" />
-      <Label fx:id="lb_category" layoutX="234.0" layoutY="7.0" text="文章类别" textFill="#2877cd" visible="false" />
       <Label layoutX="25.0" layoutY="32.0" text="标题" />
       <TextField fx:id="et_title" layoutX="64.0" layoutY="28.0" prefHeight="23.0" prefWidth="150.0" />
+      <Label fx:id="lb_categoryId" visible="true" layoutX="234.0" layoutY="7.0" text="" textFill="#2877cd" />
+      <Label fx:id="lb_articleId" visible="true" layoutX="333.0" layoutY="7.0" text="" />
       <Label fx:id="lb_error" layoutX="394.0" layoutY="32.0" prefHeight="15.0" prefWidth="117.0" text="" textFill="#cd0811" />
    </children>
 </AnchorPane>

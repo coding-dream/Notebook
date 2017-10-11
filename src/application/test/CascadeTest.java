@@ -6,7 +6,7 @@ public class CascadeTest {
 
 		CategoryDaoTest.save(5);
 		CategoryDaoTest.list();
-//
+
 		ArticleDaoTest.save(30, 1L);
 		ArticleDaoTest.save(30, 2L);
 

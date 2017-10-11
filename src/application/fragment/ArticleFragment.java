@@ -3,14 +3,19 @@ package application.fragment;
 import java.util.List;
 import java.util.Map;
 
+import application.Constants;
 import application.bean.Article;
+import application.bean.Category;
 import application.bean.Result;
 import application.dao.ArticleDao;
+import application.dao.CategoryDao;
 import application.dialog.AlertDialog;
 import application.dialog.LayoutInflater;
 import application.util.L;
 import application.util.ThreadUtils;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -22,6 +27,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class ArticleFragment extends Fragment {
 	private ListView<Article> listView;
@@ -70,7 +76,7 @@ public class ArticleFragment extends Fragment {
 		});
 
 		btn_new.setOnAction(e->{
-			createDialog();
+			createDialog(new Article());
 		});
 
 		pager_article = (Pagination) node.lookup("#pager_article");
@@ -122,15 +128,6 @@ public class ArticleFragment extends Fragment {
 							lb_update = (Label) convertView.lookup("#lb_update");
 							btn_edit = (Button) convertView.lookup("#btn_edit");
 							btn_delete = (Button) convertView.lookup("#btn_delete");
-							btn_delete.setOnAction(e->{
-								ArticleDao.getInstance().delete(item.getId());// delete database
-								listView.getItems().remove(item);// remove listItem
-							});
-
-							btn_edit.setOnAction(e->{
-								// update
-
-							});
 						}else{
 							convertView = (Parent) getGraphic().lookup("#root");
 						}
@@ -139,6 +136,17 @@ public class ArticleFragment extends Fragment {
 							setText(null);
 							setGraphic(null);
 						}else{
+							btn_delete.setOnAction(e->{
+								ArticleDao.getInstance().delete(item.getId());// delete database
+								// update ListView items
+								listView.getItems().remove(item);// remove listItem
+							});
+
+							btn_edit.setOnAction(e->{
+								// update
+								createDialog(item);
+							});
+
 							lb_id.setText(item.getId()+"");
 							lb_title.setText(item.getTitle());
 							lb_update.setText(item.getUpdateTime());
@@ -153,23 +161,66 @@ public class ArticleFragment extends Fragment {
 
 	}
 
-	private void createDialog(String title) {
+	private void createDialog(Article listItem) {
+		List<Category> categories = CategoryDao.getInstance().findAll();
+
 		AlertDialog.Builder builder = new AlertDialog.Builder();
-		builder.title(title);
-		builder.view("dialog_add")
+		builder.title("文章编辑");
+		builder.view("dialog_edit")
 		.build();
 		alertDialog = builder.build();
 		HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
-		ChoiceBox<String> choiceBox = alertDialog.findView("#choiceBox", ChoiceBox.class);
+		ChoiceBox<Category> choiceBox = alertDialog.findView("#choiceBox", ChoiceBox.class);
 		Button btn_confirm = alertDialog.findView("#btn_confirm", Button.class);
 		Button btn_cancel = alertDialog.findView("#btn_cancel", Button.class);
-		Label lb_category = alertDialog.findView("#lb_category", Label.class);
-		Label lb_error = alertDialog.findView("#lb_error", Label.class);
-		TextField et_title = alertDialog.findView("#et_title", TextField.class);
 
+		Label lb_articleId = alertDialog.findView("#lb_articleId", Label.class);
+		TextField et_title = alertDialog.findView("#et_title", TextField.class);
+		Label lb_categoryId = alertDialog.findView("#lb_categoryId", Label.class);
+		Label lb_error = alertDialog.findView("#lb_error", Label.class);
+
+		if(listItem.getId() != null) lb_articleId.setText(listItem.getId() + "");
+		if(listItem.getTitle() != null) et_title.setText(listItem.getTitle());
+		if(listItem.getContent() != null) htmlEditor.setHtmlText(listItem.getContent());
+		if(listItem.getCategoryId() != null) lb_categoryId.setText(listItem.getCategoryId() + "");
+
+		choiceBox.getItems().addAll(categories);
+		for(Category category : categories){
+			if(category.getId() == listItem.getCategoryId()){
+				choiceBox.getSelectionModel().select(category);
+			}
+		}
+
+		choiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Category>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Category> observable, Category oldValue, Category newValue) {
+				lb_categoryId.setText(newValue.getId() + "");
+			}
+		});
+
+		choiceBox.setConverter(new StringConverter<Category>() {
+
+			@Override
+			public String toString(Category category) {
+				return category.getName();
+			}
+
+			@Override
+			public Category fromString(String str) {
+				// choiceBox 不使用此方法(把字符串转换为对象),ComboBox组件才用到此方法
+				return null;
+			}
+		});
 		btn_confirm.setOnAction(ee ->{
+			Long articleId = null,categoryId = Constants.DEFAULT_CATEGORY;// 默认类别
+			if(!lb_articleId.getText().equals("")){
+				articleId = Long.parseLong(lb_articleId.getText());
+			}
+			if(!lb_categoryId.getText().equals("")){
+				categoryId = Long.parseLong(lb_categoryId.getText());
+			}
 			String title = et_title.getText();
-			String category = lb_category.getText();
 			String content = htmlEditor.getHtmlText();
 
 			if(title.equals("") || content.equals("")){
@@ -178,11 +229,12 @@ public class ArticleFragment extends Fragment {
 			}else{
 				lb_error.setText("");
 			}
-
-			Article article = new Article();
-			article.setTitle(title);
-			article.setContent(content);
-			ArticleDao.getInstance().saveOrUpdate(article);
+			// update ListView items & database
+			listItem.setId(articleId);
+			listItem.setCategoryId(categoryId);
+			listItem.setTitle(title);
+			listItem.setContent(content);
+			ArticleDao.getInstance().saveOrUpdate(listItem);
 			alertDialog.close();
 		});
 
@@ -190,11 +242,6 @@ public class ArticleFragment extends Fragment {
 			alertDialog.close();
 		});
 
-		lb_category.textProperty().bind(choiceBox.valueProperty());
-
-	    choiceBox.getItems().addAll("Dog", "Cat", "Horse");
-
-	    choiceBox.getSelectionModel().selectFirst();
 		alertDialog.show();
 	}
 
