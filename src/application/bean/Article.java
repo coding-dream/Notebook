@@ -14,6 +14,8 @@ public class Article {
 
 	private Long categoryId;
 
+	private String categoryName;// ·ÇÊý¾Ý¿â×Ö¶Î
+
 	public Long getId() {
 		return id;
 	}
@@ -28,6 +30,14 @@ public class Article {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getContent() {
@@ -65,6 +75,6 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", categoryId=" + categoryId + "]";
+				+ ", updateTime=" + updateTime + ", categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
 }

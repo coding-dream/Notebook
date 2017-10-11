@@ -4,7 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/downloader-java-1.0.jar"/>
-	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.8.11.1.jar"/>
 	<classpathentry kind="lib" path="libs/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.20.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

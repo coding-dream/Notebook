@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import application.bean.Category;
 import application.bean.Result;
 import application.db.BaseDao;
@@ -29,8 +30,14 @@ public class CategoryDao implements BaseDao<Category> {
     }
 
     private void createTable() {
-    	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, name text)", tableName);
-	     DBHelper.execSQL(sql, null);
+    	 String sql1 = String.format("create table if not exists %s(id integer primary key autoincrement, name text)", tableName);
+    	 DBHelper.execSQL(sql1, null);
+    	 String sql2 = String.format("create trigger if not exists lw_trigger before DELETE ON category "
+    	 		+ "FOR EACH ROW "
+    	 		+ "BEGIN "
+    	 		+ "delete from article where old.id = article.categoryid; "
+    	 		+ "END;");
+    	 DBHelper.execSQL(sql2, null);
 	     L.D("createTable success");
     }
 
@@ -48,7 +55,7 @@ public class CategoryDao implements BaseDao<Category> {
 
 	@Override
 	public void delete(Long id) {
-		String sql1 = "PRAGMA foreign_keys=ON";
+		String sql1 = "PRAGMA foreign_keys=ON;";
 		// 设置了级联删除和级联更新
         // sqlite 在执行有级联关系的语句的时候必须先设置"PRAGMA foreign_keys=ON"
         // 否则级联关系默认失效
@@ -128,4 +135,5 @@ public class CategoryDao implements BaseDao<Category> {
 	public List<Category> search(String text) {
 		throw new RuntimeException("not implement");
 	}
+
 }

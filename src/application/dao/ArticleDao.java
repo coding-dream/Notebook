@@ -32,6 +32,7 @@ public class ArticleDao implements BaseDao<Article> {
     }
 
     private void createTable() {
+    	 // 级联删除不支持,改用触发器解决
     	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text,categoryId integer,foreign key (categoryId) references Category(id) on delete cascade on update cascade)", tableName);
 	     DBHelper.execSQL(sql, null);
 	     L.D("createTable success");
@@ -153,6 +154,43 @@ public class ArticleDao implements BaseDao<Article> {
 		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
 		for(Map<String,String> result : results){
 			Article info = new Article();
+        	info.setId(Long.parseLong(result.get("id")));
+        	info.setTitle(result.get("title"));
+        	info.setContent(result.get("content"));
+        	info.setCreateTime(result.get("createTime".toLowerCase()));
+        	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	info.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
+        	list.add(info);
+        }
+		return list;
+	}
+
+	public List<Article> findArticleBy(String categoryName){
+		List<Article> list = new ArrayList<Article>();
+		String sql = String.format("select a.*,c.name as categoryName from article a,category c where a.categoryId=c.id and c.name = '%s' order by a.id",categoryName);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		Article info = null;
+		for(Map<String,String> result : results){
+			info = new Article();
+        	info.setId(Long.parseLong(result.get("id")));
+        	info.setTitle(result.get("title"));
+        	info.setContent(result.get("content"));
+        	info.setCreateTime(result.get("createTime".toLowerCase()));
+        	info.setUpdateTime(result.get("updateTime".toLowerCase()));
+        	info.setCategoryId(Long.parseLong(result.get("categoryId".toLowerCase())));
+        	info.setCategoryName(result.get("categoryName".toLowerCase()));
+        	list.add(info);
+        }
+		return list;
+	}
+
+	public List<Article> findArticleBy(Long categoryId){
+		List<Article> list = new ArrayList<Article>();
+		String sql = String.format("select * from %s where categoryId = ? order by id ", tableName);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, new String[]{categoryId + "" });
+		Article info = null;
+		for(Map<String,String> result : results){
+			info = new Article();
         	info.setId(Long.parseLong(result.get("id")));
         	info.setTitle(result.get("title"));
         	info.setContent(result.get("content"));
