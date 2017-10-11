@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="710.0" spacing="8.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lb_id" prefHeight="33.0" prefWidth="24.0" text="编号" />
+      <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/blue/item.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lb_title" prefHeight="23.0" prefWidth="331.0" text="标题" />
+      <Button fx:id="btn_edit" defaultButton="true" mnemonicParsing="false" prefHeight="39.0" prefWidth="40.0" text="修改" />
+      <Button fx:id="btn_delete" defaultButton="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" text="删除" />
+   </children>
+   <padding>
+      <Insets bottom="3.0" left="16.0" right="16.0" top="3.0" />
+   </padding>
+</HBox>

@@ -10,6 +10,7 @@ import application.bean.Result;
 import application.dao.ArticleDao;
 import application.dao.CategoryDao;
 import application.dialog.AlertDialog;
+import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
 import application.util.L;
 import application.util.ThreadUtils;
@@ -66,6 +67,7 @@ public class ArticleFragment extends Fragment {
 		btn_search.setOnAction(e->{
 			if(et_input.getText().equals("")){
 				System.out.println("search can not null");
+				DialogHelper.alert("Error", "搜索内容不能为空！");
 				return;
 			}
 
@@ -166,7 +168,7 @@ public class ArticleFragment extends Fragment {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder();
 		builder.title("文章编辑");
-		builder.view("dialog_edit")
+		builder.view("dialog_article_edit")
 		.build();
 		alertDialog = builder.build();
 		HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
@@ -235,6 +237,10 @@ public class ArticleFragment extends Fragment {
 			listItem.setTitle(title);
 			listItem.setContent(content);
 			ArticleDao.getInstance().saveOrUpdate(listItem);
+			if(articleId == null){
+				// 新建数据,需要刷新ListView
+				loadData(pager_article.getCurrentPageIndex());
+			}
 			alertDialog.close();
 		});
 

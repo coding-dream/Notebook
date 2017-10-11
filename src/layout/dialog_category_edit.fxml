@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btn_cancel" cancelButton="true" layoutX="174.0" layoutY="61.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="57.0" text="取消" />
+      <Button fx:id="btn_confirm" defaultButton="true" layoutX="88.0" layoutY="61.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="57.0" text="提交" />
+      <Label layoutX="32.0" layoutY="19.0" text="名称" />
+      <TextField fx:id="et_title" layoutX="88.0" layoutY="15.0" prefHeight="23.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

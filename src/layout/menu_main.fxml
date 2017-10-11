@@ -29,19 +29,19 @@
     </Menu>
       <Menu mnemonicParsing="false" text=" 工具">
          <items>
-            <MenuItem mnemonicParsing="false" text=" 偏好设置">
+            <MenuItem fx:id="menu_preference" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 偏好设置">
             	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/setting.png" /></image></ImageView></graphic>
             </MenuItem>
          </items>
       </Menu>
     <Menu mnemonicParsing="false" text=" 帮助">
       <items>
-	       <MenuItem mnemonicParsing="false" text=" 关于软件  ">
+	       <MenuItem fx:id="menu_about" onAction="#onMenuOnclick"  mnemonicParsing="false" text=" 关于软件  ">
 	           	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/about.png" /></image></ImageView></graphic>
 	       </MenuItem>
-            <MenuItem mnemonicParsing="false" text=" 使用说明 " />
-            <MenuItem mnemonicParsing="false" text=" 提交反馈 " />
-            <MenuItem mnemonicParsing="false" text=" 检查更新 ">
+            <MenuItem fx:id="menu_instruct" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 使用说明 " />
+            <MenuItem fx:id="menu_feedback" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 提交反馈 " />
+            <MenuItem fx:id="menu_check_update" onAction="#onMenuOnclick" mnemonicParsing="false" text=" 检查更新 ">
             	<graphic><ImageView fitHeight="20.0" fitWidth="20.0"><image><Image url="images/blue/update.png" /></image></ImageView></graphic>
             </MenuItem>
       </items>

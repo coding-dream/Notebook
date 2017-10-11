@@ -8,5 +8,45 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-
-<Label text="类别" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label blendMode="DIFFERENCE" prefHeight="23.0" prefWidth="100.0" text="类别管理" textFill="#4b9ae4">
+         <VBox.margin>
+            <Insets bottom="16.0" />
+         </VBox.margin>
+         <effect>
+            <Reflection>
+               <input>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </Reflection>
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="800.0">
+         <children>
+            <Button fx:id="btn_new" defaultButton="true" mnemonicParsing="false" text="新建">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="16.0" left="16.0" top="8.0" />
+         </padding>
+      </HBox>
+      <ListView fx:id="lv_category" prefHeight="365.0" prefWidth="768.0" />
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</VBox>
