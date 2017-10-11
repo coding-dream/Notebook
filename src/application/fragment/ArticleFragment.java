@@ -32,6 +32,8 @@ public class ArticleFragment extends Fragment {
 
 	private boolean FIRST = true;
 
+	private AlertDialog alertDialog;
+
 	@Override
 	public void onCreate(Map<String, String> bundle) {
 
@@ -56,55 +58,19 @@ public class ArticleFragment extends Fragment {
 		btn_new = (Button) node.lookup("#btn_new");
 
 		btn_search.setOnAction(e->{
+			if(et_input.getText().equals("")){
+				System.out.println("search can not null");
+				return;
+			}
+
 			List<Article> list = ArticleDao.getInstance().search(et_input.getText());
-			System.out.println(list);
+			listView.getItems().clear();
+			listView.getItems().addAll(list);
 
 		});
 
 		btn_new.setOnAction(e->{
-			AlertDialog.Builder builder = new AlertDialog.Builder();
-			builder.title("添加文章");
-			builder.view("dialog_add")
-			.build();
-			AlertDialog alertDialog = builder.build();
-			HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
-			ChoiceBox<String> choiceBox = alertDialog.findView("#choiceBox", ChoiceBox.class);
-			Button btn_confirm = alertDialog.findView("#btn_confirm", Button.class);
-			Button btn_cancel = alertDialog.findView("#btn_cancel", Button.class);
-			Label lb_category = alertDialog.findView("#lb_category", Label.class);
-			Label lb_error = alertDialog.findView("#lb_error", Label.class);
-			TextField et_title = alertDialog.findView("#et_title", TextField.class);
-
-			btn_confirm.setOnAction(ee ->{
-				String title = et_title.getText();
-				String category = lb_category.getText();
-				String content = htmlEditor.getHtmlText();
-
-				if(title.equals("") || content.equals("")){
-					lb_error.setText("标题或内容不能为空!");
-					return;
-				}else{
-					lb_error.setText("");
-				}
-
-				Article article = new Article();
-				article.setTitle(title);
-				article.setContent(content);
-				ArticleDao.getInstance().save(article);
-				alertDialog.close();
-			});
-
-			btn_cancel.setOnAction(eee->{
-				alertDialog.close();
-			});
-
-			lb_category.textProperty().bind(choiceBox.valueProperty());
-
-		    choiceBox.getItems().addAll("Dog", "Cat", "Horse");
-
-		    choiceBox.getSelectionModel().selectFirst();
-			alertDialog.show();
-
+			createDialog();
 		});
 
 		pager_article = (Pagination) node.lookup("#pager_article");
@@ -161,6 +127,10 @@ public class ArticleFragment extends Fragment {
 								listView.getItems().remove(item);// remove listItem
 							});
 
+							btn_edit.setOnAction(e->{
+								// update
+
+							});
 						}else{
 							convertView = (Parent) getGraphic().lookup("#root");
 						}
@@ -181,6 +151,51 @@ public class ArticleFragment extends Fragment {
 			}
 		});
 
+	}
+
+	private void createDialog(String title) {
+		AlertDialog.Builder builder = new AlertDialog.Builder();
+		builder.title(title);
+		builder.view("dialog_add")
+		.build();
+		alertDialog = builder.build();
+		HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
+		ChoiceBox<String> choiceBox = alertDialog.findView("#choiceBox", ChoiceBox.class);
+		Button btn_confirm = alertDialog.findView("#btn_confirm", Button.class);
+		Button btn_cancel = alertDialog.findView("#btn_cancel", Button.class);
+		Label lb_category = alertDialog.findView("#lb_category", Label.class);
+		Label lb_error = alertDialog.findView("#lb_error", Label.class);
+		TextField et_title = alertDialog.findView("#et_title", TextField.class);
+
+		btn_confirm.setOnAction(ee ->{
+			String title = et_title.getText();
+			String category = lb_category.getText();
+			String content = htmlEditor.getHtmlText();
+
+			if(title.equals("") || content.equals("")){
+				lb_error.setText("标题或内容不能为空!");
+				return;
+			}else{
+				lb_error.setText("");
+			}
+
+			Article article = new Article();
+			article.setTitle(title);
+			article.setContent(content);
+			ArticleDao.getInstance().saveOrUpdate(article);
+			alertDialog.close();
+		});
+
+		btn_cancel.setOnAction(eee->{
+			alertDialog.close();
+		});
+
+		lb_category.textProperty().bind(choiceBox.valueProperty());
+
+	    choiceBox.getItems().addAll("Dog", "Cat", "Horse");
+
+	    choiceBox.getSelectionModel().selectFirst();
+		alertDialog.show();
 	}
 
 	private void loadData(int page) {

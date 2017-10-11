@@ -1,23 +1,18 @@
 package application.test;
 
-import java.util.List;
-
-import application.bean.Article;
-import application.dao.ArticleDao;
-
 public class CascadeTest {
 
 	public static void main(String[] args) {
 
-//		CategoryDaoTest.save(5);
+		CategoryDaoTest.save(5);
 		CategoryDaoTest.list();
 //
-//		ArticleDaoTest.save(5, 1L);
-//		ArticleDaoTest.save(5, 2L);
+		ArticleDaoTest.save(30, 1L);
+		ArticleDaoTest.save(30, 2L);
 
 //		List<Article> list = ArticleDao.getInstance().findArticleBy(1L);
-		List<Article> list = ArticleDao.getInstance().findArticleBy("类别  : 1");
-		System.out.println(list);
+//		List<Article> list = ArticleDao.getInstance().findArticleBy("类别  : 1");
+//		System.out.println(list);
 
 	}
 }

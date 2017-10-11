@@ -136,4 +136,12 @@ public class CategoryDao implements BaseDao<Category> {
 		throw new RuntimeException("not implement");
 	}
 
+	@Override
+	public void saveOrUpdate(Category entity) {
+		if(entity.getId() == null){
+			save(entity);
+		}else{
+			update(entity);
+		}
+	}
 }

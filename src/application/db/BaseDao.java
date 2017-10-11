@@ -12,6 +12,8 @@ public interface BaseDao<T> {
 
     void update(T entity);
 
+    void saveOrUpdate(T entity);
+
     T getById(Long id);
 
     List<T> findAll();
@@ -23,4 +25,5 @@ public interface BaseDao<T> {
     int count();
 
     List<T> search(String text);
+
 }

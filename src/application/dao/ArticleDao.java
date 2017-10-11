@@ -54,19 +54,28 @@ public class ArticleDao implements BaseDao<Article> {
 	}
 
 	@Override
-	public void delete(Long id) {
-		String sql = String.format("delete from %s where id = ?", tableName);
-		DBHelper.execSQL(sql, new String[] { id + "" });
-		L.D(id + " delete success");
-	}
-
-	@Override
 	public void update(Article entity) {
 		Date date = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String sql = String.format("update %s set title = ?, content = ?, updateTime = ?,categoryId = ? where id = ?", tableName);
 		DBHelper.execSQL(sql, new String[] { entity.getTitle(), entity.getContent(), sf.format(date),entity.getCategoryId() + "", entity.getId() + ""});
 		L.D("update success");
+	}
+
+	@Override
+	public void saveOrUpdate(Article entity) {
+		if(entity.getId() == null){
+			save(entity);
+		}else{
+			update(entity);
+		}
+	}
+
+	@Override
+	public void delete(Long id) {
+		String sql = String.format("delete from %s where id = ?", tableName);
+		DBHelper.execSQL(sql, new String[] { id + "" });
+		L.D(id + " delete success");
 	}
 
 	@Override
