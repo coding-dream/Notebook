@@ -12,6 +12,7 @@ import application.dao.CategoryDao;
 import application.dialog.AlertDialog;
 import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
+import application.dialog.OnClickListener;
 import application.util.L;
 import application.util.ThreadUtils;
 import javafx.application.Platform;
@@ -26,7 +27,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -63,6 +66,13 @@ public class ArticleFragment extends Fragment {
 		et_input = (TextField) node.lookup("#et_input");
 		btn_search = (Button) node.lookup("#btn_search");
 		btn_new = (Button) node.lookup("#btn_new");
+
+		et_input.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER){
+				System.out.println("Enter");
+				e.consume();
+			}
+		});
 
 		btn_search.setOnAction(e->{
 			if(et_input.getText().equals("")){
@@ -139,9 +149,21 @@ public class ArticleFragment extends Fragment {
 							setGraphic(null);
 						}else{
 							btn_delete.setOnAction(e->{
-								ArticleDao.getInstance().delete(item.getId());// delete database
-								// update ListView items
-								listView.getItems().remove(item);// remove listItem
+								DialogHelper.confim("操作确认", "警告！你真的要删除？", new OnClickListener() {
+
+									@Override
+									public void onClick(Stage stage) {
+										stage.close();
+										ArticleDao.getInstance().delete(item.getId());// delete database
+										// update ListView items
+										listView.getItems().remove(item);// remove listItem
+									}
+								}, new OnClickListener(){
+									@Override
+									public void onClick(Stage stage) {
+										stage.close();
+									}
+								});
 							});
 
 							btn_edit.setOnAction(e->{

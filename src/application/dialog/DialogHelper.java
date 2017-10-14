@@ -53,4 +53,15 @@ public class DialogHelper {
 		.build()
 		.show();
 	}
+
+	public static void confim(String title,String msg,OnClickListener okClickListener,OnClickListener cancelClickListener){
+		new AlertDialog.Builder()
+		.view("dialog_confirm")
+		.title(title)
+		.setText("#label_info", msg)
+		.click("#btn_confirm", okClickListener)
+		.click("#btn_cancel", cancelClickListener)
+		.build()
+		.show();
+	}
 }
