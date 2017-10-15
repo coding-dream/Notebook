@@ -34,13 +34,13 @@ public class ArticleDao implements BaseDao<Article> {
     private void createTable() {
     	 // 级联删除不支持,改用触发器解决
     	 String sql = String.format("create table if not exists %s(id integer primary key autoincrement, title text, content text,createTime text, updateTime text,categoryId integer,foreign key (categoryId) references Category(id) on delete cascade on update cascade)", tableName);
-	     DBHelper.execSQL(sql, null);
+	     DBHelper.execSQL(sql);
 	     L.D("createTable success");
     }
 
     public void dropTable() {
     	String sql = String.format("drop table if exists %s", tableName);
-    	DBHelper.execSQL(sql, null);
+    	DBHelper.execSQL(sql);
     	L.D("dropTable success");
     }
 
@@ -100,7 +100,7 @@ public class ArticleDao implements BaseDao<Article> {
 	public List<Article> findAll() {
 		List<Article> list = new ArrayList<Article>();
 		String sql = String.format("select * from %s order by id", tableName);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql);
 		Article info = null;
 		for(Map<String,String> result : results){
 			info = new Article();
@@ -121,7 +121,7 @@ public class ArticleDao implements BaseDao<Article> {
 
 		int firstResult = (currentPage - 1) * Constants.PAGE_SIZE;
 		String sql = String.format("select * from %s order by id limit %d,%d", tableName,firstResult,Constants.PAGE_SIZE);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql);
 		for(Map<String,String> result : results){
 			Article info = new Article();
         	info.setId(Long.parseLong(result.get("id")));
@@ -142,7 +142,7 @@ public class ArticleDao implements BaseDao<Article> {
 	@Override
 	public int count(){
 		String sql = String.format("select count(*) from %s", tableName);
-		List<Object[]> results = DBHelper.rawSQLObjsList(sql, null);
+		List<Object[]> results = DBHelper.rawSQLObjsList(sql);
 		int count = 0;
 		if(results.size() > 0){
 			count = Integer.parseInt(results.get(0)[0] + "");
@@ -160,7 +160,7 @@ public class ArticleDao implements BaseDao<Article> {
 		String query = "%" + text + "%";
 		List<Article> list = new ArrayList<Article>();
 		String sql = String.format("select * from %s where title like '%s' order by id", tableName,query);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql);
 		for(Map<String,String> result : results){
 			Article info = new Article();
         	info.setId(Long.parseLong(result.get("id")));
@@ -177,7 +177,7 @@ public class ArticleDao implements BaseDao<Article> {
 	public List<Article> findArticleBy(String categoryName){
 		List<Article> list = new ArrayList<Article>();
 		String sql = String.format("select a.*,c.name as categoryName from article a,category c where a.categoryId=c.id and c.name = '%s' order by a.id",categoryName);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql);
 		Article info = null;
 		for(Map<String,String> result : results){
 			info = new Article();

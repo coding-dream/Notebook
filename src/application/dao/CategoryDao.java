@@ -31,26 +31,26 @@ public class CategoryDao implements BaseDao<Category> {
 
     private void createTable() {
     	 String sql1 = String.format("create table if not exists %s(id integer primary key autoincrement, name text)", tableName);
-    	 DBHelper.execSQL(sql1, null);
+    	 DBHelper.execSQL(sql1);
     	 String sql2 = String.format("create trigger if not exists lw_trigger before DELETE ON category "
     	 		+ "FOR EACH ROW "
     	 		+ "BEGIN "
     	 		+ "delete from article where old.id = article.categoryid; "
     	 		+ "END;");
-    	 DBHelper.execSQL(sql2, null);
+    	 DBHelper.execSQL(sql2);
 	     L.D("createTable success");
     }
 
     public void dropTable() {
     	String sql = String.format("drop table if exists %s", tableName);
-    	DBHelper.execSQL(sql, null);
+    	DBHelper.execSQL(sql);
     	L.D("dropTable success");
     }
 
 	@Override
 	public void save(Category entity) {
 		String sql = String.format("insert into %s(name) values(?)", tableName);
-		DBHelper.execSQL(sql, new String[] { entity.getName() });
+		DBHelper.execSQL(sql, entity.getName());
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class CategoryDao implements BaseDao<Category> {
 	@Override
 	public Category getById(Long id) {
 		String sql = String.format("select * from %s where id = ? ", tableName);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, new String[] { id + "" });
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql,  id + "");
 		Category category = null;
 		if(results.size() > 0){
 			Map<String,String> result = results.get(0);
@@ -99,7 +99,7 @@ public class CategoryDao implements BaseDao<Category> {
 	public List<Category> findAll() {
 		List<Category> list = new ArrayList<Category>();
 		String sql = String.format("select * from %s order by id", tableName);
-		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql, null);
+		List<Map<String, String>> results = DBHelper.rawSQLMapList(sql);
 		Category info = null;
 		for(Map<String,String> result : results){
 			info = new Category();
@@ -118,7 +118,7 @@ public class CategoryDao implements BaseDao<Category> {
 	@Override
 	public int count(){
 		String sql = String.format("select count(*) from %s", tableName);
-		List<Object[]> results = DBHelper.rawSQLObjsList(sql, null);
+		List<Object[]> results = DBHelper.rawSQLObjsList(sql);
 		int count = 0;
 		if(results.size() > 0){
 			count = Integer.parseInt(results.get(0)[0] + "");

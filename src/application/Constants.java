@@ -15,5 +15,4 @@ public class Constants {
 	 public static final String CONFIG_GIT_USER = "git_user";
 	 public static final String CONFIG_GIT_PASSWORD = "git_passwd";
 	 public static final String CONFIG_APP_PASSWORD = "app_passwd";
-
 }

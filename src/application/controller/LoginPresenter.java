@@ -40,9 +40,9 @@ public class LoginPresenter implements Initializable {
 
 		String username = et_username.getText();
 		String password = DigestUtils.md5Hex(et_password.getText());
-		String db_passwd = Preferences.get(Constants.CONFIG_APP_PASSWORD);
+		String config_passwd = Preferences.get(Constants.CONFIG_APP_PASSWORD);
 
-		if(password.equals(db_passwd)){
+		if(password.equals(config_passwd)){
 			L.d("登录成功！", null);
 			// 重设 scene的 布局
 			MainView mainView = new MainView();

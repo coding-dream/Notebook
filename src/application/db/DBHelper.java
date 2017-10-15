@@ -52,7 +52,7 @@ public class DBHelper {
   	}
 
   	/** rawSQL(可读 ->仅支持查询) */
-    public static List<Map<String,String>> rawSQLMapList(String sql,String [] params){
+    public static List<Map<String,String>> rawSQLMapList(String sql,String ... params){
     	connection = getConnection();
     	ArrayList<Map<String,String>> list = new ArrayList<>();
     	try {
@@ -86,7 +86,7 @@ public class DBHelper {
     }
 
  	/** rawSQL(可读 ->仅支持查询) */
-    public static List<Object[]> rawSQLObjsList(String sql,String [] params){
+    public static List<Object[]> rawSQLObjsList(String sql,String ... params){
     	connection = getConnection();
     	List<Object[]> list = new ArrayList<>();
     	try {
@@ -116,7 +116,7 @@ public class DBHelper {
     }
 
     /** execSQL(可写 ->:支持 create,insert,update,delete,drop等数据库更新相关的操作 ) */
-    public static boolean execSQL(String sql,String [] params){
+    public static boolean execSQL(String sql,String ... params){
     	boolean flag = false;
     	connection = getConnection();
     	try {
