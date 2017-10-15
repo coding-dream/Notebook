@@ -58,10 +58,9 @@ public class MainView implements View {
 			TreeItem<String> item_3 = new TreeItem<String>("系统管理",threeIcon);
 		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1,item_2,item_3));
 
-		    TreeItem<String> item_3_1 = new TreeItem<String>("xx");
-		    TreeItem<String> item_3_2 = new TreeItem<String>("xx");
-		    TreeItem<String> item_3_3 = new TreeItem<String>("退出");
-		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2,item_3_3));
+		    TreeItem<String> item_3_1 = new TreeItem<String>("设置");
+		    TreeItem<String> item_3_2 = new TreeItem<String>("退出");
+		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2));
 
 		    treeItemRoot.setExpanded(true);
 
@@ -80,7 +79,7 @@ public class MainView implements View {
 					case "类别管理":
 						setSelection(main_center, FRAGMENT_CATEGORY);
 						break;
-					case "系统管理":
+					case "设置":
 						setSelection(main_center, FRAGMENT_SETTING);
 						break;
 					case "退出":

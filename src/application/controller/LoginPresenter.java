@@ -5,8 +5,10 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import application.Constants;
 import application.dialog.DialogHelper;
 import application.util.L;
+import application.util.Preferences;
 import application.view.MainView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -38,7 +40,9 @@ public class LoginPresenter implements Initializable {
 
 		String username = et_username.getText();
 		String password = DigestUtils.md5Hex(et_password.getText());
-		if(username.equals("admin")){
+		String db_passwd = Preferences.get(Constants.CONFIG_APP_PASSWORD);
+
+		if(password.equals(db_passwd)){
 			L.d("登录成功！", null);
 			// 重设 scene的 布局
 			MainView mainView = new MainView();
