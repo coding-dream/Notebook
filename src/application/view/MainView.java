@@ -6,6 +6,7 @@ import application.dialog.LayoutInflater;
 import application.fragment.ArticleFragment;
 import application.fragment.CategoryFragment;
 import application.fragment.DefaultFragment;
+import application.fragment.DeployFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
@@ -13,7 +14,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
-import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -26,11 +27,15 @@ public class MainView implements View {
 	private final ImageView oneIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_article.png")));
 	private final ImageView twoIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_category.png")));
 	private final ImageView threeIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_setting.png")));
+	private final ImageView fourIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_config.png")));
+	private final ImageView fiveIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_deploy.png")));
+	private final ImageView sixIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_quit.png")));
 
 	private Fragment fragmentDefalt;
 	private Fragment fragmentArticle;
 	private Fragment fragmentCategory;
 	private Fragment fragmentSetting;
+	private Fragment fragmentDeploy;
 
 	private Fragment lastFragment;
 
@@ -39,6 +44,7 @@ public class MainView implements View {
 	private static final int FRAGMENT_ARTICLE = 1;
 	private static final int FRAGMENT_CATEGORY = 2;
 	private static final int FRAGMENT_SETTING = 3;
+	private static final int FRAGMENT_DEPLOY = 4;
 
 	@Override
 	public Parent getView() {
@@ -58,9 +64,10 @@ public class MainView implements View {
 			TreeItem<String> item_3 = new TreeItem<String>("系统管理",threeIcon);
 		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1,item_2,item_3));
 
-		    TreeItem<String> item_3_1 = new TreeItem<String>("设置");
-		    TreeItem<String> item_3_2 = new TreeItem<String>("退出");
-		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2));
+		    TreeItem<String> item_3_1 = new TreeItem<String>("设置",fourIcon);
+		    TreeItem<String> item_3_2 = new TreeItem<String>("发布",fiveIcon);
+		    TreeItem<String> item_3_3 = new TreeItem<String>("退出",sixIcon);
+		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2,item_3_3));
 
 		    treeItemRoot.setExpanded(true);
 
@@ -81,6 +88,9 @@ public class MainView implements View {
 						break;
 					case "设置":
 						setSelection(main_center, FRAGMENT_SETTING);
+						break;
+					case "发布":
+						setSelection(main_center, FRAGMENT_DEPLOY);
 						break;
 					case "退出":
 						Platform.exit();
@@ -116,6 +126,12 @@ public class MainView implements View {
 				fragmentSetting = new SettingFragment();
 			}
 			toFragment(main_center,fragmentSetting);
+			break;
+		case FRAGMENT_DEPLOY:
+			if(fragmentDeploy == null){
+				fragmentDeploy = new DeployFragment();
+			}
+			toFragment(main_center,fragmentDeploy);
 			break;
 
 		default:
