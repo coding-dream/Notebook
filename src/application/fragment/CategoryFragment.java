@@ -9,6 +9,7 @@ import application.dao.CategoryDao;
 import application.dialog.AlertDialog;
 import application.dialog.DialogHelper;
 import application.dialog.LayoutInflater;
+import application.dialog.OnClickListener;
 import application.util.ThreadUtils;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class CategoryFragment extends Fragment {
@@ -83,9 +85,21 @@ public class CategoryFragment extends Fragment {
 							setGraphic(null);
 						}else{
 							btn_delete.setOnAction(e->{
-								CategoryDao.getInstance().delete(item.getId());// delete database
-								// update ListView items
-								listView.getItems().remove(item);// remove listItem
+								DialogHelper.confim("操作确认", "警告！你真的要删除？", new OnClickListener() {
+
+									@Override
+									public void onClick(Stage stage) {
+										stage.close();
+										CategoryDao.getInstance().delete(item.getId());// delete database
+										// update ListView items
+										listView.getItems().remove(item);// remove listItem
+									}
+								}, new OnClickListener(){
+									@Override
+									public void onClick(Stage stage) {
+										stage.close();
+									}
+								});
 							});
 
 							btn_edit.setOnAction(e->{

@@ -171,6 +171,11 @@ public class ArticleFragment extends Fragment {
 								createDialog(item);
 							});
 
+							convertView.setOnMouseClicked(e->{
+								if(e.getClickCount() == 2){
+									DialogHelper.showArticle(item.getContent());
+								}
+							});
 							lb_id.setText(item.getId()+"");
 							lb_title.setText(item.getTitle());
 							lb_update.setText(item.getUpdateTime());

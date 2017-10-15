@@ -1,67 +1,79 @@
 package application.dialog;
 
 import javafx.scene.image.Image;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 public class DialogHelper {
 
 	public static void alert(String title, String message){
 		new AlertDialog.Builder()
-		.view("dialog_alert")
-		.title(title)
-		.setText("#label_info", message)
-		.click("#btn_confirm", new OnClickListener() {
+			.view("dialog_alert")
+			.title(title)
+			.setText("#label_info", message)
+			.click("#btn_confirm", new OnClickListener() {
 
-			@Override
-			public void onClick(Stage stage) {
-				stage.close();
-			}
-		})
-		.build()
-		.show();
+				@Override
+				public void onClick(Stage stage) {
+					stage.close();
+				}
+			})
+			.build()
+			.show();
 	}
 
 	public static void alert(String title, String message,Image image){
 		new AlertDialog.Builder()
-		.view("dialog_alert")
-		.title(title)
-		.setText("#label_info", message)
-		.setImage("#imageview_tip", image)
-		.click("#btn_confirm", new OnClickListener() {
+			.view("dialog_alert")
+			.title(title)
+			.setText("#label_info", message)
+			.setImage("#imageview_tip", image)
+			.click("#btn_confirm", new OnClickListener() {
 
-			@Override
-			public void onClick(Stage stage) {
-				stage.close();
-			}
-		})
-		.build()
-		.show();
+				@Override
+				public void onClick(Stage stage) {
+					stage.close();
+				}
+			})
+			.build()
+			.show();
 	}
 
 	public static void about(){
 		new AlertDialog.Builder()
-		.view("dialog_about")
-		.title("关于")
-		.build()
-		.show();
+			.view("dialog_about")
+			.title("关于")
+			.build()
+			.show();
 	}
 
 	public static void progressbar() {
 		new AlertDialog.Builder()
-		.view("dialog_progressbar")
-		.title("数据加载中")
-		.build()
-		.show();
+			.view("dialog_progressbar")
+			.title("数据加载中")
+			.build()
+			.show();
 	}
 
 	public static void confim(String title,String msg,OnClickListener okClickListener,OnClickListener cancelClickListener){
 		new AlertDialog.Builder()
-		.view("dialog_confirm")
-		.title(title)
-		.setText("#label_info", msg)
-		.click("#btn_confirm", okClickListener)
-		.click("#btn_cancel", cancelClickListener)
-		.build()
-		.show();
+			.view("dialog_confirm")
+			.title(title)
+			.setText("#label_info", msg)
+			.click("#btn_confirm", okClickListener)
+			.click("#btn_cancel", cancelClickListener)
+			.build()
+			.show();
+	}
+
+	public static void showArticle(String content) {
+		AlertDialog alertDialog = new AlertDialog.Builder()
+			.view("dialog_article_detail")
+			.title("内容详情")
+			.build();
+		HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
+		htmlEditor.setDisable(true);
+		htmlEditor.setHtmlText(content);
+		alertDialog.show();
 	}
 }
