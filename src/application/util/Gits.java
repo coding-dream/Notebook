@@ -17,7 +17,12 @@ import application.Constants;
 
 public class Gits {
 
-	public static void push(){
+	public interface Callback {
+		void success();
+		void error(Exception e);
+	}
+
+	public static void push(Callback callback){
 		try {
 			// URI uri = Gits.class.getResource("/").toURI();
 			String projectDir = System.getProperty("user.dir");
@@ -27,16 +32,19 @@ public class Gits {
 				encryptdb.createNewFile();
 			}
 
-			byte[] datas = IOUtils.toByteArray(new FileInputStream(encryptdb));
+			byte[] datas = IOUtils.toByteArray(new FileInputStream("notebook.db"));
 
 			String secret = Preferences.get(Constants.CONFIG_SECRET);
+			if("".equals(secret)){
+				throw new IllegalArgumentException("未设置加密秘钥");
+			}
 
 			byte[] encryptDatas = PBECoder.encript(datas, secret, "13572468".getBytes());
+			System.out.println(encryptDatas.length);
 			FileUtils.writeByteArrayToFile(encryptdb, encryptDatas);
 
 			// =============== 加密  ===============
 			String gitResitory = projectDir + File.separator + ".git";
-			System.out.println(gitResitory);
 			Git git = Git.open(new File(gitResitory));
 
 			Repository repository = git.getRepository();
@@ -47,7 +55,7 @@ public class Gits {
             Iterator<RevCommit> iterator= logCommand.call().iterator();
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                System.out.println(new String(revCommit.getRawBuffer()));
+                // System.out.println(new String(revCommit.getRawBuffer()));
             }
 
             /******************************************************************************
@@ -76,8 +84,11 @@ public class Gits {
             // ssh方式提交
             AllowHostsCredentialsProvider allowHosts = new AllowHostsCredentialsProvider();
             git.push().setCredentialsProvider(allowHosts).call();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+
+            callback.success();
+
+		} catch (Exception e) {
+			callback.error(e);
 		}
 	}
 }

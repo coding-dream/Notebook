@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,7 +41,13 @@ public class LoginPresenter implements Initializable {
 
 		String username = et_username.getText();
 		String password = DigestUtils.md5Hex(et_password.getText());
-		String config_passwd = Preferences.get(Constants.CONFIG_APP_PASSWORD);
+		File file = new File(Constants.CONFIG_PATH);
+		String config_passwd = "";
+		if(file.exists()){
+			config_passwd = Preferences.get(Constants.CONFIG_APP_PASSWORD);
+		}else{
+			config_passwd = DigestUtils.md5Hex("123456");// 未设置密码初始值
+		}
 
 		if(password.equals(config_passwd)){
 			L.d("登录成功！", null);

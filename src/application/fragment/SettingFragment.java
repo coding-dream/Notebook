@@ -57,17 +57,12 @@ public class SettingFragment extends Fragment {
 
 		btn_submit.setOnAction(e->{
 			String message = "";
-			if(isEmpty(et_secret.getText(),et_git_username.getText(),et_git_passwd.getText(),et_app_password.getText(),et_app_password_second.getText())){
-				message = "字段不能为空！";
-				DialogHelper.alert("警告", message);
-				return;
-			}
-			if(!et_app_password.getText().equals(et_app_password_second.getText())){
+			if(!et_app_password.getText().trim().equals(et_app_password_second.getText().trim())){
 				message = "两次密码输入不一致！";
 				DialogHelper.alert("警告", message);
 				return;
 			}
-			if(et_app_password.getText().length() < 5){
+			if(!"".equals(et_app_password.getText().trim()) && et_app_password.getText().trim().length() < 5){
 				message = "密码长度太短,不够安全！";
 				DialogHelper.alert("警告", message);
 				return;
@@ -112,18 +107,39 @@ public class SettingFragment extends Fragment {
 
 	private void writeToProperty() {
 		try {
-			JSONObject config = new JSONObject();
-			config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download.getText());
-			config.put(Constants.CONFIG_SECRET, et_secret.getText());
-			config.put(Constants.CONFIG_GIT_USER, et_git_username.getText());
-			config.put(Constants.CONFIG_GIT_PASSWORD, et_git_passwd.getText());
-			config.put(Constants.CONFIG_APP_PASSWORD, DigestUtils.md5Hex(et_app_password.getText()));
+			JSONObject config;
+
 			File file = new File(Constants.CONFIG_PATH);
 			if(!file.exists()){
 				if(!file.getParentFile().exists()){
 					file.getParentFile().mkdirs();
 				}
 				file.createNewFile();
+				// create
+				config = new JSONObject();
+				config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download.getText().trim());
+				config.put(Constants.CONFIG_SECRET, et_secret.getText().trim());
+				config.put(Constants.CONFIG_GIT_USER, et_git_username.getText().trim());
+				config.put(Constants.CONFIG_GIT_PASSWORD, et_git_passwd.getText().trim());
+				config.put(Constants.CONFIG_APP_PASSWORD, DigestUtils.md5Hex(et_app_password.getText().trim()));
+
+			} else {
+				// update
+				FileInputStream fileInputStream = new FileInputStream(file);
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, "utf-8"));
+				String line = "";
+				StringBuilder builder = new StringBuilder();
+				while((line = bufferedReader.readLine()) != null){
+					builder.append(line + "\r\n");
+				}
+				bufferedReader.close();
+				fileInputStream.close();
+				config = new JSONObject(builder.toString());
+				if(!"".equals(et_download.getText().trim())) config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download.getText().trim());
+				if(!"".equals(et_secret.getText().trim())) config.put(Constants.CONFIG_SECRET, et_secret.getText().trim());
+				if(!"".equals(et_git_username.getText().trim())) config.put(Constants.CONFIG_GIT_USER, et_git_username.getText().trim());
+				if(!"".equals(et_git_passwd.getText().trim())) config.put(Constants.CONFIG_GIT_PASSWORD, et_git_passwd.getText().trim());
+				if(!"".equals(et_app_password.getText().trim())) config.put(Constants.CONFIG_APP_PASSWORD, DigestUtils.md5Hex(et_app_password.getText().trim()));
 			}
 
 			FileOutputStream fileOutputStream = new FileOutputStream(file);

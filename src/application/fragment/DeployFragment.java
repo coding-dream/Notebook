@@ -7,7 +7,10 @@ import org.eclipse.jgit.api.Git;
 import application.annotation.AnnotationHandler;
 import application.annotation.Mode;
 import application.annotation.ThreadMode;
+import application.dialog.DialogHelper;
 import application.util.Gits;
+import application.util.Gits.Callback;
+import application.util.L;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
@@ -54,9 +57,22 @@ public class DeployFragment extends Fragment {
 	@ThreadMode(mode = Mode.ASYNC,tag = "work")
 	public void deploy(String param){
 		// do work
-		Gits.push();
+		Gits.push(new Callback() {
 
-		AnnotationHandler.sendMessage("done",null);
+			@Override
+			public void success() {
+				L.D("发布成功!");
+				AnnotationHandler.sendMessage("done",null);
+			}
+
+			@Override
+			public void error(Exception e) {
+				L.D("发布失败!");
+				e.printStackTrace();
+				AnnotationHandler.sendMessage("error",e.getMessage());
+			}
+		});
+
 	}
 
 	@ThreadMode(mode = Mode.MAIN,tag = "done")
@@ -65,4 +81,10 @@ public class DeployFragment extends Fragment {
 		btn_deploy.setDisable(false);
 	}
 
+	@ThreadMode(mode = Mode.MAIN,tag = "error")
+	public void deployError(String param){
+		progressbar.setVisible(false);
+		btn_deploy.setDisable(false);
+		DialogHelper.alert("Error", "发布失败！ " + param);
+	}
 }
