@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="588.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btn_deploy" defaultButton="true" layoutX="135.0" layoutY="347.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="下载" textFill="WHITE" />
+      <ProgressIndicator fx:id="progressbar" layoutX="266.0" layoutY="261.0" prefHeight="45.0" prefWidth="58.0" visible="false" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="261.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="194.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/github.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="224.0" layoutY="20.0" text="GitHub数据下载">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="171.0" layoutY="228.0" text="Tip:" textFill="#e83737">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="213.0" layoutY="230.0" prefHeight="15.0" prefWidth="237.0" text="请到设置面板设置默认的发布配置" textFill="#097186" />
+      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="98.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/blue/download.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="355.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/blue/synchronized.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btn_deploy1" defaultButton="true" layoutX="393.0" layoutY="347.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="同步替换" textFill="WHITE" />
+   </children>
+</AnchorPane>

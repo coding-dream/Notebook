@@ -2,8 +2,6 @@ package application.fragment;
 
 import java.util.Map;
 
-import org.eclipse.jgit.api.Git;
-
 import application.annotation.AnnotationHandler;
 import application.annotation.Mode;
 import application.annotation.ThreadMode;

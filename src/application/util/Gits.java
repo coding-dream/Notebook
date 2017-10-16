@@ -15,6 +15,11 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 import application.Constants;
 
+/**
+ * @see http://wiki.eclipse.org/JGit/User_Guide
+ * @see http://download.eclipse.org/jgit/site/4.9.0.201710071750-r/apidocs/index.html
+ * @author Limitless
+ */
 public class Gits {
 
 	public interface Callback {
@@ -43,7 +48,6 @@ public class Gits {
 			System.out.println(encryptDatas.length);
 			FileUtils.writeByteArrayToFile(encryptdb, encryptDatas);
 
-			// =============== 加密  ===============
 			String gitResitory = projectDir + File.separator + ".git";
 			Git git = Git.open(new File(gitResitory));
 
@@ -76,7 +80,9 @@ public class Gits {
             message.append(" on ");
             message.append(sf.format(new Date()));
             message.append(" =======");
-            git.commit().setAll(true).setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
+            // git.commit().setAll(true) 相当于 git commit -a,等于提交全部文件,不推荐。
+            // git.commit().setAll(true).setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
+            git.commit().setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
 
 	        // https 方式提交
             // git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username,password)).call();

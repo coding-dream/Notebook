@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import application.fragment.DeployFragment;
 import application.util.ThreadUtils;
 import javafx.application.Platform;
 
@@ -17,8 +16,6 @@ public class AnnotationHandler {
 //		String name = findClazzAnno(Article.class);
 //		System.out.println(name);
 //		findFieldAnno(Article.class);
-
-		register(new DeployFragment());
 	}
 
 	private static String findClazzAnno(Class<?> clazz){
@@ -51,7 +48,7 @@ public class AnnotationHandler {
 		}
 	}
 
-	private static  void findFieldAnno(Class<?> clazz){
+	private static void findFieldAnno(Class<?> clazz){
 		while (clazz != null && !isSystemCalss(clazz.getName())) {
 			Field[] allFields = clazz.getDeclaredFields();
 			Map<String,String> columnsDefs =  new HashMap<>();
