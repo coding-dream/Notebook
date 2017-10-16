@@ -1,14 +1,19 @@
 package application.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+
+import application.Constants;
 
 public class Gits {
 
@@ -16,12 +21,20 @@ public class Gits {
 		try {
 			// URI uri = Gits.class.getResource("/").toURI();
 			String projectDir = System.getProperty("user.dir");
-			// º”√‹
-			File db = new File(projectDir,"encrypt.db");
-			if(!db.exists()){
-				db.createNewFile();
+			// =============== º”√‹  ===============
+			File encryptdb = new File(projectDir,"encrypt.db");
+			if(!encryptdb.exists()){
+				encryptdb.createNewFile();
 			}
 
+			byte[] datas = IOUtils.toByteArray(new FileInputStream(encryptdb));
+
+			String secret = Preferences.get(Constants.CONFIG_SECRET);
+
+			byte[] encryptDatas = PBECoder.encript(datas, secret, "13572468".getBytes());
+			FileUtils.writeByteArrayToFile(encryptdb, encryptDatas);
+
+			// =============== º”√‹  ===============
 			String gitResitory = projectDir + File.separator + ".git";
 			System.out.println(gitResitory);
 			Git git = Git.open(new File(gitResitory));
