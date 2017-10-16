@@ -47,14 +47,14 @@ public class Gits {
 
             git.add().addFilepattern("encrypt.db").call();
             // git commit
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
             StringBuffer message = new StringBuffer();
             message.append("=======");
             message.append(" :smile: ");
             message.append("update Notebook.db");
             message.append(" on ");
             message.append(sf.format(new Date()));
-            message.append("=======");
+            message.append(" =======");
             git.commit().setAll(true).setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
 
 	        // https 方式提交
