@@ -51,6 +51,9 @@ public class DeployFragment extends Fragment {
 	@ThreadMode(mode = Mode.ASYNC,tag = "work")
 	public void deploy(String param){
 		// do work
+
+
+
 		AnnotationHandler.sendMessage("done",null);
 	}
 
