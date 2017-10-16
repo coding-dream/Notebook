@@ -4,43 +4,54 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-import application.bean.Article;
+import application.fragment.DeployFragment;
+import application.util.ThreadUtils;
+import javafx.application.Platform;
 
 public class AnnotationHandler {
+	private static CopyOnWriteArrayList<TargetMethod> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
 
 	public static void main(String[] args) {
-		String name = findClazz(Article.class);
-		System.out.println(name);
-		findFieldAnno(Article.class);
+//		String name = findClazzAnno(Article.class);
+//		System.out.println(name);
+//		findFieldAnno(Article.class);
 
+		register(new DeployFragment());
 	}
 
-	public static String findClazz(Class<?> clazz){
+	private static String findClazzAnno(Class<?> clazz){
 		Entity entity = clazz.getAnnotation(Entity.class);
 		String name = entity.name();
 		return name;
 	}
 
-	public static void findMethedAnno(Class<?> clazz){
+	private static void findMethedAnno(Object subscriber){
+		Class<?> clazz = subscriber.getClass();
 		while (clazz != null && !isSystemCalss(clazz.getName())) {
 			Method[] allMethods = clazz.getDeclaredMethods();
 			for (int i = 0; i < allMethods.length; i++) {
 				Method method = allMethods[i];
 //				Annotation[] anns = method.getDeclaredAnnotations();
-				onClick annotation = method.getAnnotation(onClick.class);
+				ThreadMode annotation = method.getAnnotation(ThreadMode.class);
 				if (annotation != null) {
 					// 获取方法参数
 					Class<?>[] paramsTypeClass = method.getParameterTypes();
-					for(Class cls : paramsTypeClass){
-						System.out.println(cls.getSimpleName());
+					// 仅支持一个参数的消息发送
+					if(paramsTypeClass != null && paramsTypeClass.length == 1){
+						TargetMethod subscribeMethod = new TargetMethod(method,subscriber,annotation.tag(),annotation.mode());
+						copyOnWriteArrayList.add(subscribeMethod);
+					}else{
+						throw new RuntimeException("注解方法参数错误,仅支持一个参数的注解方法");
 					}
 				}
 			}
+			break;
 		}
 	}
 
-	public static  void findFieldAnno(Class<?> clazz){
+	private static  void findFieldAnno(Class<?> clazz){
 		while (clazz != null && !isSystemCalss(clazz.getName())) {
 			Field[] allFields = clazz.getDeclaredFields();
 			Map<String,String> columnsDefs =  new HashMap<>();
@@ -56,18 +67,45 @@ public class AnnotationHandler {
         return name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("android.");
     }
 
-	private static Class<?> convertType(Class<?> eventType) {
-        Class<?> returnClass = null;
-        if (eventType.equals(boolean.class)) {
-            returnClass = Boolean.class;
-        } else if (eventType.equals(int.class)) {
-            returnClass = Integer.class;
-        } else if (eventType.equals(float.class)) {
-            returnClass = Float.class;
-        } else if (eventType.equals(double.class)) {
-            returnClass = Double.class;
-        }
+	public static void register(Object object) {
+		findMethedAnno(object);
+	}
 
-        return returnClass;
-    }
+	public static void sendMessage(String tag,String methodParam) {
+		for(TargetMethod targetMethod : copyOnWriteArrayList){
+			if(tag.equals(targetMethod.getTag())){
+				handleMessage(targetMethod,methodParam);
+			}
+		}
+	}
+
+	private static void handleMessage(TargetMethod targetMethod, String methodParam) {
+		if(targetMethod.getMode() == Mode.MAIN){
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						targetMethod.getMethod().invoke(targetMethod.getSubscriber(), methodParam);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+		}else{
+			ThreadUtils.run(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						targetMethod.getMethod().invoke(targetMethod.getSubscriber(), methodParam);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+
+	}
 }

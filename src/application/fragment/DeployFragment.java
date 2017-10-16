@@ -2,8 +2,9 @@ package application.fragment;
 
 import java.util.Map;
 
-import application.util.ThreadUtils;
-import javafx.application.Platform;
+import application.annotation.AnnotationHandler;
+import application.annotation.Mode;
+import application.annotation.ThreadMode;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
@@ -40,32 +41,23 @@ public class DeployFragment extends Fragment {
 			progressbar.setProgress(-1f);
 			btn_deploy.setDisable(true);// 不可重复点击
 
-			// do execute
-			ThreadUtils.run(new Runnable() {
-
-				@Override
-				public void run() {
-					// do work
-					try {
-						Thread.sleep(3000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-
-					Platform.runLater(new Runnable() {
-
-						@Override
-						public void run() {
-							progressbar.setProgress(1f);// 完成
-							btn_deploy.setDisable(false);
-						}
-					});
-				}
-			});
-
+			AnnotationHandler.sendMessage("work",null);
 		});
 
-
+		AnnotationHandler.register(this);
 
 	}
+
+	@ThreadMode(mode = Mode.ASYNC,tag = "work")
+	public void deploy(String param){
+		// do work
+		AnnotationHandler.sendMessage("done",null);
+	}
+
+	@ThreadMode(mode = Mode.MAIN,tag = "done")
+	public void deploySuccess(String param){
+		progressbar.setProgress(1f);// 完成
+		btn_deploy.setDisable(false);
+	}
+
 }

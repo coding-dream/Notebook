@@ -29,7 +29,7 @@
       <Label layoutX="150.0" layoutY="193.0" text="用户名" />
       <Label layoutX="150.0" layoutY="240.0" text="密   码" />
       <TextField fx:id="et_username" layoutX="231.0" layoutY="189.0" promptText="默认admin" text="admin"/>
-      <PasswordField fx:id="et_password" layoutX="231.0" layoutY="236.0" promptText="请输入密码" text="admin" />
+      <PasswordField fx:id="et_password" layoutX="231.0" layoutY="236.0" promptText="请输入密码" text="123456" />
       <Button fx:id="btn_login" defaultButton="true" layoutX="231.0" layoutY="292.0" mnemonicParsing="false" onAction="#login" prefHeight="23.0" prefWidth="55.0" text="登录" />
       <Button fx:id="btn_reset" cancelButton="true" layoutX="314.0" layoutY="292.0" mnemonicParsing="false" onAction="#reset" prefHeight="23.0" prefWidth="55.0" text="重置" />
    </children>
