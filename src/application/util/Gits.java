@@ -1,7 +1,6 @@
 package application.util;
 
 import java.io.File;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -13,15 +12,19 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 public class Gits {
 
-	public static void push(String fileName){
+	public static void push(){
 		try {
+			// URI uri = Gits.class.getResource("/").toURI();
+			String projectDir = System.getProperty("user.dir");
+			// 加密
+			File db = new File(projectDir,"encrypt.db");
+			if(!db.exists()){
+				db.createNewFile();
+			}
 
-			URI uri = Gits.class.getResource("/").toURI();
-			String path = uri.getPath();
-			System.out.println(path);
-
-			String dir = new File(path).getParentFile().getAbsolutePath() + File.separator + ".git";
-			Git git = Git.open(new File(dir));
+			String gitResitory = projectDir + File.separator + ".git";
+			System.out.println(gitResitory);
+			Git git = Git.open(new File(gitResitory));
 
 			Repository repository = git.getRepository();
 			System.out.println(repository.getBranch());
@@ -41,18 +44,18 @@ public class Gits {
              * addFilepattern("README").call()
              * --------------------------------------------------------------
              *****************************************************************************/
-            git.add().addFilepattern(".").call();
 
+            git.add().addFilepattern("encrypt.db").call();
             // git commit
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             StringBuffer message = new StringBuffer();
             message.append("=======");
-            message.append("update ");
-            message.append(fileName);
+            message.append(" :smile: ");
+            message.append("update Notebook.db");
             message.append(" on ");
             message.append(sf.format(new Date()));
             message.append("=======");
-            git.commit().setAll(true).setAuthor("wangli0", "xx@qq.com").setMessage(message.toString()).call();
+            git.commit().setAll(true).setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
 
 	        // https 方式提交
             // git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username,password)).call();
@@ -60,7 +63,6 @@ public class Gits {
             // ssh方式提交
             AllowHostsCredentialsProvider allowHosts = new AllowHostsCredentialsProvider();
             git.push().setCredentialsProvider(allowHosts).call();
-
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

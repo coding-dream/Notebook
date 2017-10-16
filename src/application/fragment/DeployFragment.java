@@ -2,9 +2,12 @@ package application.fragment;
 
 import java.util.Map;
 
+import org.eclipse.jgit.api.Git;
+
 import application.annotation.AnnotationHandler;
 import application.annotation.Mode;
 import application.annotation.ThreadMode;
+import application.util.Gits;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
@@ -51,8 +54,7 @@ public class DeployFragment extends Fragment {
 	@ThreadMode(mode = Mode.ASYNC,tag = "work")
 	public void deploy(String param){
 		// do work
-
-
+		Gits.push();
 
 		AnnotationHandler.sendMessage("done",null);
 	}
