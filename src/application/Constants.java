@@ -8,7 +8,6 @@ public class Constants {
 	 public static final String ENCODING = "UTF-8";
 	 public static final Image APP_LOGO = new Image("/images/logo.jpg");
 	 public static final String BrowserCanOpenNew = "(http://|https://|www.|ftp://|thunder:)[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?";
-	 public static final Long DEFAULT_CATEGORY = 1L;// Ä¬ÈÏÀà±ðID
 	 public static final String CONFIG_PATH = "C:\\Program Files\\Notebook\\notebook.json";
 	 public static final String CONFIG_TEMP_DB = "C:\\Program Files\\Notebook\\temp.db";
 	 public static final String CONFIG_DOWNLOAD_PATH = "download_path";

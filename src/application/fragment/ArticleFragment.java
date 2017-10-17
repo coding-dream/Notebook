@@ -242,18 +242,19 @@ public class ArticleFragment extends Fragment {
 			}
 		});
 		btn_confirm.setOnAction(ee ->{
-			Long articleId = null,categoryId = Constants.DEFAULT_CATEGORY;// 默认类别
+			Long articleId = null,categoryId = null;// 默认类别
 			if(!lb_articleId.getText().equals("")){
 				articleId = Long.parseLong(lb_articleId.getText());
 			}
+
 			if(!lb_categoryId.getText().equals("")){
 				categoryId = Long.parseLong(lb_categoryId.getText());
 			}
 			String title = et_title.getText();
 			String content = htmlEditor.getHtmlText();
 
-			if(title.equals("") || content.equals("")){
-				lb_error.setText("标题或内容不能为空!");
+			if(title.equals("") || content.equals("") || categoryId == null){
+				lb_error.setText("类别，标题，内容均不能为空!");
 				return;
 			}else{
 				lb_error.setText("");

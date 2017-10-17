@@ -23,6 +23,6 @@
       <TextField fx:id="et_title" layoutX="64.0" layoutY="28.0" prefHeight="23.0" prefWidth="150.0" />
       <Label fx:id="lb_categoryId" layoutX="234.0" layoutY="7.0" text="" textFill="#2877cd" visible="true" />
       <Label fx:id="lb_articleId" layoutX="333.0" layoutY="7.0" text="" visible="true" />
-      <Label fx:id="lb_error" layoutX="848.0" layoutY="32.0" prefHeight="15.0" prefWidth="117.0" text="" textFill="#cd0811" />
+      <Label fx:id="lb_error" layoutX="723.0" layoutY="32.0" prefHeight="15.0" prefWidth="242.0" text="" textFill="#cd0811" />
    </children>
 </AnchorPane>
