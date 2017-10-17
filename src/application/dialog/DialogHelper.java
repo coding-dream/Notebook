@@ -10,7 +10,7 @@ public class DialogHelper {
 		new AlertDialog.Builder()
 			.view("dialog_alert")
 			.title(title)
-			.setText("#label_info", message)
+			.setText("#text_info", message)
 			.click("#btn_confirm", new OnClickListener() {
 
 				@Override
@@ -26,7 +26,7 @@ public class DialogHelper {
 		new AlertDialog.Builder()
 			.view("dialog_alert")
 			.title(title)
-			.setText("#label_info", message)
+			.setText("#text_info", message)
 			.setImage("#imageview_tip", image)
 			.click("#btn_confirm", new OnClickListener() {
 

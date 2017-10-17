@@ -23,17 +23,14 @@
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="label_info" prefHeight="100.0" prefWidth="386.0" text="Label" textFill="#c37c7c">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-               </padding>
+            <TextArea fx:id="text_info" editable="false" prefHeight="73.0" prefWidth="363.0" style="-fx-border-color: #D2B48C;" text="信息框">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font size="17.0" />
                </font>
-            </Label>
+               <HBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
+               </HBox.margin>
+            </TextArea>
          </children>
       </HBox>
       <AnchorPane prefHeight="65.0" prefWidth="491.0">

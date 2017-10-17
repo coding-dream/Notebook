@@ -20,7 +20,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SettingFragment extends Fragment {
-	private TextField et_download;
+	private TextField et_download_path;
+	private TextField et_deploy_path;
 	private TextField et_secret;
 	private TextField et_git_username;
 	private PasswordField et_git_passwd;
@@ -45,7 +46,8 @@ public class SettingFragment extends Fragment {
 
 	@Override
 	public void initData(Parent node, Map<String, String> bundle) {
-		et_download = (TextField) node.lookup("#et_download");
+		et_download_path = (TextField) node.lookup("#et_download_path");
+		et_deploy_path = (TextField) node.lookup("#et_deploy_path");
 		et_secret = (TextField) node.lookup("#et_secret");
 		et_git_username = (TextField) node.lookup("#et_git_username");
 		et_git_passwd = (PasswordField) node.lookup("#et_git_passwd");
@@ -89,12 +91,14 @@ public class SettingFragment extends Fragment {
 				fileInputStream.close();
 				JSONObject config = new JSONObject(builder.toString());
 				String downloadPath = config.optString(Constants.CONFIG_DOWNLOAD_PATH, "");
+				String deployPath = config.optString(Constants.CONFIG_DEPLOY_PATH, "");
 				String secret = config.optString(Constants.CONFIG_SECRET, "");
 				String git_user = config.optString(Constants.CONFIG_GIT_USER, "");
 				String git_passwd = config.optString(Constants.CONFIG_GIT_PASSWORD, "");
 				String app_passwd = config.optString(Constants.CONFIG_APP_PASSWORD, "");
 
-				et_download.setText(downloadPath);
+				et_download_path.setText(downloadPath);
+				et_deploy_path.setText(deployPath);
 				et_secret.setText(secret);
 				et_git_username.setText(git_user);
 				et_git_passwd.setText(git_passwd);
@@ -117,7 +121,8 @@ public class SettingFragment extends Fragment {
 				file.createNewFile();
 				// create
 				config = new JSONObject();
-				config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download.getText().trim());
+				config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download_path.getText().trim());
+				config.put(Constants.CONFIG_DEPLOY_PATH, et_deploy_path.getText().trim());
 				config.put(Constants.CONFIG_SECRET, et_secret.getText().trim());
 				config.put(Constants.CONFIG_GIT_USER, et_git_username.getText().trim());
 				config.put(Constants.CONFIG_GIT_PASSWORD, et_git_passwd.getText().trim());
@@ -135,7 +140,8 @@ public class SettingFragment extends Fragment {
 				bufferedReader.close();
 				fileInputStream.close();
 				config = new JSONObject(builder.toString());
-				if(!"".equals(et_download.getText().trim())) config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download.getText().trim());
+				if(!"".equals(et_download_path.getText().trim())) config.put(Constants.CONFIG_DOWNLOAD_PATH, et_download_path.getText().trim());
+				if(!"".equals(et_deploy_path.getText().trim())) config.put(Constants.CONFIG_DEPLOY_PATH, et_deploy_path.getText().trim());
 				if(!"".equals(et_secret.getText().trim())) config.put(Constants.CONFIG_SECRET, et_secret.getText().trim());
 				if(!"".equals(et_git_username.getText().trim())) config.put(Constants.CONFIG_GIT_USER, et_git_username.getText().trim());
 				if(!"".equals(et_git_passwd.getText().trim())) config.put(Constants.CONFIG_GIT_PASSWORD, et_git_passwd.getText().trim());

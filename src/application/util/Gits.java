@@ -12,6 +12,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import application.Constants;
 
@@ -31,8 +32,16 @@ public class Gits {
 		try {
 			// URI uri = Gits.class.getResource("/").toURI();
 			String projectDir = System.getProperty("user.dir");
+			String deployDir = Preferences.get(Constants.CONFIG_DEPLOY_PATH);
 			// =============== 加密  ===============
-			File encryptdb = new File(projectDir,"encrypt.db");
+			String realDeployDir = null;
+			if("".equals(deployDir)){
+				realDeployDir = projectDir;
+			}else{
+				realDeployDir = deployDir;
+			}
+			L.D("begin deploy : " + realDeployDir + File.separator + "encrypt.db");
+			File encryptdb = new File(realDeployDir,"encrypt.db");
 			if(!encryptdb.exists()){
 				encryptdb.createNewFile();
 			}
@@ -48,7 +57,7 @@ public class Gits {
 			System.out.println(encryptDatas.length);
 			FileUtils.writeByteArrayToFile(encryptdb, encryptDatas);
 
-			String gitResitory = projectDir + File.separator + ".git";
+			String gitResitory = realDeployDir + File.separator + ".git";
 			Git git = Git.open(new File(gitResitory));
 
 			Repository repository = git.getRepository();
@@ -84,13 +93,18 @@ public class Gits {
             // git.commit().setAll(true).setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
             git.commit().setAuthor("deeper", "kaiyuan@qq.com").setMessage(message.toString()).call();
 
-	        // https 方式提交
-            // git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username,password)).call();
+            String git_user = Preferences.get(Constants.CONFIG_GIT_USER);
+            String git_pass = Preferences.get(Constants.CONFIG_GIT_PASSWORD);
 
-            // ssh方式提交
-            AllowHostsCredentialsProvider allowHosts = new AllowHostsCredentialsProvider();
-            git.push().setCredentialsProvider(allowHosts).call();
+            if(!"".equals(git_user) || !"".equals(git_pass)){
+    	        // https 方式提交
+                git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(git_user,git_pass)).call();
+            } else {
+                // ssh方式提交
+                AllowHostsCredentialsProvider allowHosts = new AllowHostsCredentialsProvider();
+                git.push().setCredentialsProvider(allowHosts).call();
 
+            }
             callback.success();
 
 		} catch (Exception e) {

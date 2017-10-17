@@ -14,7 +14,6 @@ public final class HttpGets {
     private static HttpGets instance;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-
     public static HttpGets getInstance(){
         if (instance == null) {
             synchronized (HttpGets.class) {
@@ -53,7 +52,7 @@ public final class HttpGets {
             req.putAll(params);
         }
 
-//        req.put("xx", xx);
+        // req.put("xx", xx);
 
         this.call(url, req, callback);
     }
@@ -64,17 +63,17 @@ public final class HttpGets {
     }
 
 
-    private String readInputStream(InputStream inStream) throws Exception {
+    private byte[] readInputStream(InputStream inStream) throws Exception {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = 0;
         while ((len = inStream.read(buffer)) != -1) {
             outStream.write(buffer, 0, len);
         }
-        byte[] data = outStream.toByteArray();//网页的二进制数据
+        byte[] datas = outStream.toByteArray();
         outStream.close();
         inStream.close();
-        return new String(data, "UTF-8");
+        return datas;
     }
 
     class CallTask implements Runnable {
@@ -90,9 +89,9 @@ public final class HttpGets {
             callback = new Callback() {
                 @Override
                 public <T> void done(T ret, Exception e) {
-                    if(trytimes>1 && null != e) {
+                    if(trytimes > 1 && null != e) {
                     	System.out.println("call api - "+api+" failed: "+ e);
-                        executorService.submit(new CallTask(api, map, wrapcall, trytimes-1));
+                        executorService.submit(new CallTask(api, map, wrapcall, trytimes - 1));
                     }else{
                         wrapcall.done(ret, e);
                     }
@@ -105,7 +104,7 @@ public final class HttpGets {
         @Override
         public void run() {
 
-            // ignoreHttps(); //忽略https安全连接
+            // ignoreHttps();
 
             StringBuffer params = new StringBuffer();
 
@@ -121,8 +120,8 @@ public final class HttpGets {
                 connection.setConnectTimeout(1000 * 30);
                 connection.setReadTimeout(1000 * 30);
 
-                String content = readInputStream(connection.getInputStream());
-                callback.done(content,null);
+                byte[] datas = readInputStream(connection.getInputStream());
+                callback.done(datas,null);
 
             } catch (Exception e) {
                 callback.done(null, e);

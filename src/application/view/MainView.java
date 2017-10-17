@@ -10,11 +10,11 @@ import application.fragment.DeployFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
+import application.fragment.SyncFragment;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -29,13 +29,15 @@ public class MainView implements View {
 	private final ImageView threeIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_setting.png")));
 	private final ImageView fourIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_config.png")));
 	private final ImageView fiveIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_deploy.png")));
-	private final ImageView sixIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_quit.png")));
+	private final ImageView sixIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_synchronized.png")));
+	private final ImageView sevenIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_quit.png")));
 
 	private Fragment fragmentDefalt;
 	private Fragment fragmentArticle;
 	private Fragment fragmentCategory;
 	private Fragment fragmentSetting;
 	private Fragment fragmentDeploy;
+	private Fragment fragmentSync;
 
 	private Fragment lastFragment;
 
@@ -45,6 +47,7 @@ public class MainView implements View {
 	private static final int FRAGMENT_CATEGORY = 2;
 	private static final int FRAGMENT_SETTING = 3;
 	private static final int FRAGMENT_DEPLOY = 4;
+	private static final int FRAGMENT_SYNC = 5;
 
 	@Override
 	public Parent getView() {
@@ -66,10 +69,12 @@ public class MainView implements View {
 
 		    TreeItem<String> item_3_1 = new TreeItem<String>("设置",fourIcon);
 		    TreeItem<String> item_3_2 = new TreeItem<String>("发布",fiveIcon);
-		    TreeItem<String> item_3_3 = new TreeItem<String>("退出",sixIcon);
-		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2,item_3_3));
+		    TreeItem<String> item_3_3 = new TreeItem<String>("同步",sixIcon);
+		    TreeItem<String> item_3_4 = new TreeItem<String>("退出",sevenIcon);
+		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2,item_3_3,item_3_4));
 
 		    treeItemRoot.setExpanded(true);
+		    item_3.setExpanded(true);
 
 	        treeView.setShowRoot(true);
 	        treeView.setRoot(treeItemRoot);
@@ -91,6 +96,9 @@ public class MainView implements View {
 						break;
 					case "发布":
 						setSelection(main_center, FRAGMENT_DEPLOY);
+						break;
+					case "同步":
+						setSelection(main_center, FRAGMENT_SYNC);
 						break;
 					case "退出":
 						Platform.exit();
@@ -132,6 +140,12 @@ public class MainView implements View {
 				fragmentDeploy = new DeployFragment();
 			}
 			toFragment(main_center,fragmentDeploy);
+			break;
+		case FRAGMENT_SYNC:
+			if(fragmentSync == null){
+				fragmentSync = new SyncFragment();
+			}
+			toFragment(main_center,fragmentSync);
 			break;
 
 		default:
