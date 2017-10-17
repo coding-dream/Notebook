@@ -76,4 +76,13 @@ public class DialogHelper {
 		htmlEditor.setHtmlText(content);
 		alertDialog.show();
 	}
+
+	public static void info(String title, String info) {
+		new AlertDialog.Builder()
+		.view("dialog_info")
+		.title(title)
+		.setText("#textarea_info", info)
+		.build()
+		.show();
+	}
 }

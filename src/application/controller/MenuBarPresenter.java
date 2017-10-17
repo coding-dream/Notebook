@@ -1,5 +1,10 @@
 package application.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
 import application.dialog.DialogHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -24,7 +29,14 @@ public class MenuBarPresenter{
 		}else if(event.getSource() == menu_about){
 			DialogHelper.about();
 		}else if(event.getSource() == menu_instruct){
-			//
+			try {
+				String projectDir = System.getProperty("user.dir");
+				String info = FileUtils.readFileToString(new File(projectDir,"instruct.txt"), "utf-8");
+				DialogHelper.info("使用说明", info);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}else if(event.getSource() == menu_feedback){
 
 		}else if(event.getSource() == menu_check_update){
