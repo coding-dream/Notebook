@@ -30,7 +30,7 @@ public class ToolFragment extends Fragment {
 	private ProgressIndicator progressbar;
 	private Label lb_tip;
 
-	private String tag = DigestUtils.md5Hex("https://github.com/wangli0");
+	private String tag;
 
 	@Override
 	public void onCreate(Map<String, String> bundle) {
@@ -57,6 +57,7 @@ public class ToolFragment extends Fragment {
 				return;
 			}
 
+			tag = DigestUtils.md5Hex(url);
 			RequestCall call = new GetBuilder()
 					.name(name)
 					.uri(url)

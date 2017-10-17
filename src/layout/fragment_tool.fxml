@@ -23,7 +23,7 @@
          </font>
       </Label>
       <Label layoutX="192.0" layoutY="308.0" text="Tip:" textFill="#f20d0d" />
-      <Label fx:id="lb_tip" layoutX="247.0" layoutY="308.0" prefHeight="15.0" prefWidth="234.0" text="多线程断点下载（单文件版）" textAlignment="JUSTIFY" textFill="#06404d" />
+      <Label fx:id="lb_tip" layoutX="247.0" layoutY="308.0" prefHeight="15.0" prefWidth="234.0" text="多线程断点下载" textAlignment="JUSTIFY" textFill="#06404d" />
       <Button fx:id="btn_download_start" defaultButton="true" layoutX="140.0" layoutY="347.0" mnemonicParsing="false" text="开始下载" />
       <Button fx:id="btn_download_pause" defaultButton="true" layoutX="268.0" layoutY="347.0" mnemonicParsing="false" text="暂停下载" />
       <Button fx:id="btn_download_cancel" defaultButton="true" layoutX="404.0" layoutY="346.0" mnemonicParsing="false" text="取消下载" />
