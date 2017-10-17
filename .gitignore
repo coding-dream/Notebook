@@ -22,4 +22,4 @@
 hs_err_pid*
 /bin/
 notebook.db
-decrypt.db
+download.db

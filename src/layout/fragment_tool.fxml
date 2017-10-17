@@ -8,9 +8,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="207.0" layoutY="126.0" text="Tool" />
+      <Label layoutX="88.0" layoutY="99.0" prefHeight="15.0" prefWidth="28.0" text="链接" />
+      <Label layoutX="78.0" layoutY="150.0" prefHeight="15.0" prefWidth="49.0" text="下载目录" />
+      <Label layoutX="70.0" layoutY="204.0" prefHeight="15.0" prefWidth="64.0" text="保存文件名" />
+      <ProgressIndicator fx:id="progressbar" progress="0.0" visible="false" layoutX="288.0" layoutY="236.0" />
+      <TextField fx:id="tf_download_url" layoutX="162.0" layoutY="95.0" prefHeight="23.0" prefWidth="340.0" promptText="请输入下载链接" />
+      <TextField fx:id="tf_download_folder" layoutX="162.0" layoutY="146.0" prefHeight="23.0" prefWidth="340.0" promptText="请输入存放目录" />
+      <TextField fx:id="tf_download_fname" layoutX="162.0" layoutY="200.0" prefHeight="23.0" prefWidth="340.0" promptText="请输入最终保存的文件名" />
+      <Label layoutX="253.0" layoutY="30.0" prefHeight="30.0" prefWidth="94.0" text="文件下载">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="192.0" layoutY="308.0" text="Tip:" textFill="#f20d0d" />
+      <Label fx:id="lb_tip" layoutX="247.0" layoutY="308.0" prefHeight="15.0" prefWidth="234.0" text="多线程断点下载（单文件版）" textAlignment="JUSTIFY" textFill="#06404d" />
+      <Button fx:id="btn_download_start" defaultButton="true" layoutX="140.0" layoutY="347.0" mnemonicParsing="false" text="开始下载" />
+      <Button fx:id="btn_download_pause" defaultButton="true" layoutX="268.0" layoutY="347.0" mnemonicParsing="false" text="暂停下载" />
+      <Button fx:id="btn_download_cancel" defaultButton="true" layoutX="404.0" layoutY="346.0" mnemonicParsing="false" text="取消下载" />
    </children>
 </AnchorPane>
