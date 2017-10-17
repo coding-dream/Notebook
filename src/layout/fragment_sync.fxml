@@ -27,12 +27,12 @@
          </font>
       </Label>
       <Label layoutX="213.0" layoutY="230.0" prefHeight="15.0" prefWidth="237.0" text="请到设置面板设置默认的发布配置" textFill="#097186" />
-      <ImageView fx:id="iv_down" fitHeight="26.0" fitWidth="26.0" layoutX="117.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv_down" fitHeight="26.0" fitWidth="26.0" layoutX="240.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/blue/down_default.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="iv_sync" fitHeight="26.0" fitWidth="26.0" layoutX="437.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv_sync" fitHeight="26.0" fitWidth="26.0" layoutX="324.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/blue/sync_default.png" />
          </image>

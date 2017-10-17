@@ -11,6 +11,7 @@ import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
 import application.fragment.SyncFragment;
+import application.fragment.ToolFragment;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +32,7 @@ public class MainView implements View {
 	private final ImageView fiveIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_deploy.png")));
 	private final ImageView sixIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_synchronized.png")));
 	private final ImageView sevenIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_quit.png")));
+	private final ImageView eightIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_tool.png")));
 
 	private Fragment fragmentDefalt;
 	private Fragment fragmentArticle;
@@ -38,6 +40,7 @@ public class MainView implements View {
 	private Fragment fragmentSetting;
 	private Fragment fragmentDeploy;
 	private Fragment fragmentSync;
+	private Fragment fragmentTool;
 
 	private Fragment lastFragment;
 
@@ -48,6 +51,7 @@ public class MainView implements View {
 	private static final int FRAGMENT_SETTING = 3;
 	private static final int FRAGMENT_DEPLOY = 4;
 	private static final int FRAGMENT_SYNC = 5;
+	private static final int FRAGMENT_TOOL = 6;
 
 	@Override
 	public Parent getView() {
@@ -64,17 +68,18 @@ public class MainView implements View {
 
 			TreeItem<String> item_1 = new TreeItem<String>("文章管理",oneIcon);
 			TreeItem<String> item_2 = new TreeItem<String>("类别管理",twoIcon);
-			TreeItem<String> item_3 = new TreeItem<String>("系统管理",threeIcon);
-		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1,item_2,item_3));
+			TreeItem<String> item_3 = new TreeItem<String>("常用工具",eightIcon);
+			TreeItem<String> item_4 = new TreeItem<String>("系统管理",threeIcon);
+		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1,item_2,item_3,item_4));
 
-		    TreeItem<String> item_3_1 = new TreeItem<String>("设置",fourIcon);
-		    TreeItem<String> item_3_2 = new TreeItem<String>("发布",fiveIcon);
-		    TreeItem<String> item_3_3 = new TreeItem<String>("同步",sixIcon);
-		    TreeItem<String> item_3_4 = new TreeItem<String>("退出",sevenIcon);
-		    treeItemRoot.getChildren().get(2).getChildren().addAll(Arrays.asList(item_3_1,item_3_2,item_3_3,item_3_4));
+		    TreeItem<String> item_4_1 = new TreeItem<String>("设置",fourIcon);
+		    TreeItem<String> item_4_2 = new TreeItem<String>("发布",fiveIcon);
+		    TreeItem<String> item_4_3 = new TreeItem<String>("同步",sixIcon);
+		    TreeItem<String> item_4_4 = new TreeItem<String>("退出",sevenIcon);
+		    treeItemRoot.getChildren().get(3).getChildren().addAll(Arrays.asList(item_4_1,item_4_2,item_4_3,item_4_4));
 
 		    treeItemRoot.setExpanded(true);
-		    item_3.setExpanded(true);
+		    item_4.setExpanded(true);
 
 	        treeView.setShowRoot(true);
 	        treeView.setRoot(treeItemRoot);
@@ -99,6 +104,9 @@ public class MainView implements View {
 						break;
 					case "同步":
 						setSelection(main_center, FRAGMENT_SYNC);
+						break;
+					case "常用工具":
+						setSelection(main_center, FRAGMENT_TOOL);
 						break;
 					case "退出":
 						Platform.exit();
@@ -146,6 +154,12 @@ public class MainView implements View {
 				fragmentSync = new SyncFragment();
 			}
 			toFragment(main_center,fragmentSync);
+			break;
+		case FRAGMENT_TOOL:
+			if(fragmentTool == null){
+				fragmentTool = new ToolFragment();
+			}
+			toFragment(main_center,fragmentTool);
 			break;
 
 		default:

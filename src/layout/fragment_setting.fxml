@@ -12,7 +12,7 @@
    <children>
       <Label layoutX="70.0" layoutY="149.0" text="加密秘钥" />
       <Label layoutX="264.0" layoutY="117.0" text="文章加密设置" textFill="#3292e0" />
-      <Label layoutX="268.0" layoutY="174.0" text="GitHub设置" textFill="#3292e0" />
+      <Label layoutX="217.0" layoutY="176.0" text="GitHub设置（可选，默认ssh）" textFill="#3292e0" />
       <Label layoutX="75.0" layoutY="212.0" text="用户名" />
       <Label layoutX="75.0" layoutY="240.0" text="密   码" />
       <TextField fx:id="et_secret" layoutX="153.0" layoutY="145.0" prefHeight="23.0" prefWidth="305.0" promptText="请输入秘钥" />
