@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="libs/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-jdk14-1.7.21.jar"/>
 	<classpathentry kind="lib" path="libs/commons-io-2.2.jar"/>
+	<classpathentry kind="lib" path="libs/jshortcut-0_4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

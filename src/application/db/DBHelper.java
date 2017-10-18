@@ -22,17 +22,17 @@ public class DBHelper {
 
     static {
 		try {
-			// åŠ è½½é©±åŠ¨
+			// ¼ÓÔØÇı¶¯
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
     }
 
-    /** è·å–è¿æ¥ */
+    /** »ñÈ¡Á¬½Ó */
     private static Connection getConnection(){
     	try {
-    		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + DB_NAME);//ä¸éœ€è¦ç”¨æˆ·å å¯†ç     jdbc:mysql://localhost:3306/test,æ²¡æœ‰test.dbåˆ™ä¼šè‡ªåŠ¨åˆ›å»ºæ–‡ä»¶
+    		Connection connection = DriverManager.getConnection("jdbc:sqlite:" + DB_NAME);//²»ĞèÒªÓÃ»§Ãû ÃÜÂë    jdbc:mysql://localhost:3306/test,Ã»ÓĞtest.dbÔò»á×Ô¶¯´´½¨ÎÄ¼ş
     		return connection;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class DBHelper {
     	return null;
     }
 
-    /** å…³é—­èµ„æº */
+    /** ¹Ø±Õ×ÊÔ´ */
   	private static void close(){
   		try {
   			if(resultSet != null) resultSet.close();
@@ -51,7 +51,7 @@ public class DBHelper {
   		}
   	}
 
-  	/** rawSQL(å¯è¯» ->ä»…æ”¯æŒæŸ¥è¯¢) */
+  	/** rawSQL(¿É¶Á ->½öÖ§³Ö²éÑ¯) */
     public static List<Map<String,String>> rawSQLMapList(String sql,String ... params){
     	connection = getConnection();
     	ArrayList<Map<String,String>> list = new ArrayList<>();
@@ -64,9 +64,9 @@ public class DBHelper {
     		}
     		resultSet = psStatement.executeQuery();
     		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-    		int column = resultSetMetaData.getColumnCount();// æ•°æ®åº“çš„å­—æ®µåˆ—æ•°
+    		int column = resultSetMetaData.getColumnCount();// Êı¾İ¿âµÄ×Ö¶ÎÁĞÊı
 
-    		Map<String,String> map = null;// æ¯ä¸€ä¸ªmapå°±æ˜¯ä¸€ä¸ªå¯¹è±¡(è®°å½•)
+    		Map<String,String> map = null;// Ã¿Ò»¸ömap¾ÍÊÇÒ»¸ö¶ÔÏó(¼ÇÂ¼)
     		while(resultSet.next()){
     			map = new HashMap<>();
         		for(int i =  1;i <= column;i++){
@@ -85,7 +85,7 @@ public class DBHelper {
     	return list;
     }
 
- 	/** rawSQL(å¯è¯» ->ä»…æ”¯æŒæŸ¥è¯¢) */
+ 	/** rawSQL(¿É¶Á ->½öÖ§³Ö²éÑ¯) */
     public static List<Object[]> rawSQLObjsList(String sql,String ... params){
     	connection = getConnection();
     	List<Object[]> list = new ArrayList<>();
@@ -98,10 +98,10 @@ public class DBHelper {
     		}
     		resultSet = psStatement.executeQuery();
     		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-    		int column = resultSetMetaData.getColumnCount();// æ•°æ®åº“çš„å­—æ®µåˆ—æ•°
+    		int column = resultSetMetaData.getColumnCount();// Êı¾İ¿âµÄ×Ö¶ÎÁĞÊı
 
     		while(resultSet.next()){
-    			Object [] obj = new Object[column];// æ¯ä¸ªæ•°ç»„è¡¨ç¤ºä¸€æ¡æ•°æ®åº“è®°å½•,é‡Œé¢å­˜æ”¾çš„æ˜¯å­—æ®µæ•°ç»„
+    			Object [] obj = new Object[column];// Ã¿¸öÊı×é±íÊ¾Ò»ÌõÊı¾İ¿â¼ÇÂ¼,ÀïÃæ´æ·ÅµÄÊÇ×Ö¶ÎÊı×é
     			for(int i = 0;i < column;i++){
     				obj[i] = resultSet.getObject(i+1);
     			}
@@ -115,7 +115,7 @@ public class DBHelper {
     	return list;
     }
 
-    /** execSQL(å¯å†™ ->:æ”¯æŒ create,insert,update,delete,dropç­‰æ•°æ®åº“æ›´æ–°ç›¸å…³çš„æ“ä½œ ) */
+    /** execSQL(¿ÉĞ´ ->:Ö§³Ö create,insert,update,delete,dropµÈÊı¾İ¿â¸üĞÂÏà¹ØµÄ²Ù×÷ ) */
     public static boolean execSQL(String sql,String ... params){
     	boolean flag = false;
     	connection = getConnection();
@@ -140,11 +140,11 @@ public class DBHelper {
     	return flag;
     }
 
-    /** execSQL(å¯å†™ ->:æ”¯æŒ create,insert,update,delete,dropç­‰æ•°æ®åº“æ›´æ–°ç›¸å…³çš„æ“ä½œ ) å¤šæ¡SQLéœ€è¦äº‹åŠ¡æ“ä½œã€‚ */
+    /** execSQL(¿ÉĞ´ ->:Ö§³Ö create,insert,update,delete,dropµÈÊı¾İ¿â¸üĞÂÏà¹ØµÄ²Ù×÷ ) ¶àÌõSQLĞèÒªÊÂÎñ²Ù×÷¡£ */
     public static boolean execSQLAll(String [] sqls,String [][] params) throws SQLException{
     	boolean flag = false;
     	connection = getConnection();
-    	connection.setAutoCommit(false);// äº‹åŠ¡å¼€å§‹ ç›¸å½“äº beginTransation();
+    	connection.setAutoCommit(false);// ÊÂÎñ¿ªÊ¼ Ïàµ±ÓÚ beginTransation();
 
     	try {
     		for(int i = 0;i < sqls.length;i++){
@@ -163,7 +163,7 @@ public class DBHelper {
     		flag = true;
 
     	}catch (Exception e) {
-    		connection.rollback();// äº‹åŠ¡å›æ»š
+    		connection.rollback();// ÊÂÎñ»Ø¹ö
     		e.printStackTrace();
 		}finally {
 			close();
