@@ -89,13 +89,12 @@ public class SyncFragment extends Fragment {
 		String projectDir = System.getProperty("user.dir");
 		File destFile = new File(projectDir,"notebook.db");
 
-		if(destFile.exists()){
-			destFile.delete();
-		}
 		try {
-			FileUtils.moveFile(tempFile, destFile);
+			byte[] data = FileUtils.readFileToByteArray(tempFile);
+			FileUtils.writeByteArrayToFile(destFile, data);
 		} catch (IOException e) {
 			e.printStackTrace();
+			DialogHelper.alert("Error", e.toString());
 		}
 		progressbar.setProgress(1f);
 		iv_down.setDisable(false);
