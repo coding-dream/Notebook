@@ -31,7 +31,7 @@ Git仓库即可（该仓库 -本地和远端- 已建立关联），然后仅需�
 ![](screenshots/5.png)
 
 ## License
-    Copyright 2017 wangli
+    Copyright 2017 coding-dream
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
