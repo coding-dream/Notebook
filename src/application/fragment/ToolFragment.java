@@ -69,7 +69,7 @@ public class ToolFragment extends Fragment {
 			downloadManager.start(call, new FileCallBack() {
 
 				@Override
-				public void onStart() {
+				public void onStart(String tag) {
 					L.D("============== onStart ============== ");
 					Platform.runLater(new Runnable() {
 
@@ -108,7 +108,7 @@ public class ToolFragment extends Fragment {
 				}
 
 				@Override
-				public void onDownloadProgress(long finished, long totalLength, int percent) {
+				public void onDownloadProgress(String tag, long finished, long totalLength, int percent) {
 					L.D("============== onDownloadProgress ============== " + percent);
 					Platform.runLater(new Runnable() {
 
@@ -119,6 +119,7 @@ public class ToolFragment extends Fragment {
 						}
 					});
 				}
+
 			});
 
 		});
