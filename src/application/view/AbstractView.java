@@ -10,5 +10,4 @@ public class AbstractView implements View {
 		VBox vBox = new VBox();
 		return vBox;
 	}
-
 }

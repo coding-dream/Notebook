@@ -24,7 +24,7 @@ public class App extends Application {
 			primaryStage.getIcons().add(Constants.APP_LOGO);
 			primaryStage.show();
 
-			createShortcut();
+			// createShortcut();
 
 		} catch(Exception e) {
 			e.printStackTrace();

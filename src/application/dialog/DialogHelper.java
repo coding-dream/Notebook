@@ -72,7 +72,6 @@ public class DialogHelper {
 			.title("ฤฺศÝฯ๊ว้")
 			.build();
 		HTMLEditor htmlEditor = alertDialog.findView("#et_html", HTMLEditor.class);
-		htmlEditor.setDisable(true);
 		htmlEditor.setHtmlText(content);
 		alertDialog.show();
 	}

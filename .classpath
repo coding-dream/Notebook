@@ -14,5 +14,9 @@
 	<classpathentry kind="lib" path="libs/jshortcut-0_4.jar"/>
 	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="libs/downloader-java-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/commons-email-1.5.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="libs/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/mail-1.4.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

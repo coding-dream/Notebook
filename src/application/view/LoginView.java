@@ -11,5 +11,4 @@ public class LoginView implements View {
 		AnchorPane anchorPane = LayoutInflater.inflate("activity_login", AnchorPane.class);
 		return anchorPane;
 	}
-
 }

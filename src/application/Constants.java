@@ -16,4 +16,9 @@ public class Constants {
 	 public static final String CONFIG_GIT_USER = "git_user";
 	 public static final String CONFIG_GIT_PASSWORD = "git_passwd";
 	 public static final String CONFIG_APP_PASSWORD = "app_passwd";
+	 public static final String EMAIL_FROM = "C:\\JavaFX\\email\\from.json";
+	 public static final String EMAIL_TO = "C:\\JavaFX\\email\\to.txt";
+	 public static final String EMAIL_HTML = "C:\\JavaFX\\email\\email.html";
+	 public static final String EMAIL_URL = "C:\\JavaFX\\email\\url.txt";
+	 public static final int EMAIL_SEND_TIMEOUT = 3000;
 }

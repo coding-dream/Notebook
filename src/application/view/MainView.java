@@ -7,6 +7,7 @@ import application.fragment.ArticleFragment;
 import application.fragment.CategoryFragment;
 import application.fragment.DefaultFragment;
 import application.fragment.DeployFragment;
+import application.fragment.EmailFragment;
 import application.fragment.Fragment;
 import application.fragment.FragmentTransaction;
 import application.fragment.SettingFragment;
@@ -33,6 +34,7 @@ public class MainView implements View {
 	private final ImageView sixIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_synchronized.png")));
 	private final ImageView sevenIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_quit.png")));
 	private final ImageView eightIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_tool.png")));
+	private final ImageView emailIcon = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("images/blue/tree_email.png")));
 
 	private Fragment fragmentDefalt;
 	private Fragment fragmentArticle;
@@ -41,6 +43,7 @@ public class MainView implements View {
 	private Fragment fragmentDeploy;
 	private Fragment fragmentSync;
 	private Fragment fragmentTool;
+	private Fragment fragmentEmail;
 
 	private Fragment lastFragment;
 
@@ -52,6 +55,7 @@ public class MainView implements View {
 	private static final int FRAGMENT_DEPLOY = 4;
 	private static final int FRAGMENT_SYNC = 5;
 	private static final int FRAGMENT_TOOL = 6;
+	private static final int FRAGMENT_EMAIL = 7;
 
 	@Override
 	public Parent getView() {
@@ -69,17 +73,18 @@ public class MainView implements View {
 			TreeItem<String> item_1 = new TreeItem<String>("文章管理",oneIcon);
 			TreeItem<String> item_2 = new TreeItem<String>("类别管理",twoIcon);
 			TreeItem<String> item_3 = new TreeItem<String>("常用工具",eightIcon);
-			TreeItem<String> item_4 = new TreeItem<String>("系统管理",threeIcon);
-		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1,item_2,item_3,item_4));
+			TreeItem<String> item_4 = new TreeItem<String>("邮件发送器",emailIcon);
+			TreeItem<String> item_5 = new TreeItem<String>("系统管理",threeIcon);
+		    treeItemRoot.getChildren().addAll(Arrays.asList(item_1, item_2, item_3, item_4, item_5));
 
 		    TreeItem<String> item_4_1 = new TreeItem<String>("设置",fourIcon);
 		    TreeItem<String> item_4_2 = new TreeItem<String>("发布",fiveIcon);
 		    TreeItem<String> item_4_3 = new TreeItem<String>("同步",sixIcon);
 		    TreeItem<String> item_4_4 = new TreeItem<String>("退出",sevenIcon);
-		    treeItemRoot.getChildren().get(3).getChildren().addAll(Arrays.asList(item_4_1,item_4_2,item_4_3,item_4_4));
+		    treeItemRoot.getChildren().get(4).getChildren().addAll(Arrays.asList(item_4_1, item_4_2, item_4_3, item_4_4));
 
 		    treeItemRoot.setExpanded(true);
-		    item_4.setExpanded(true);
+		    item_5.setExpanded(true);
 
 	        treeView.setShowRoot(true);
 	        treeView.setRoot(treeItemRoot);
@@ -107,6 +112,9 @@ public class MainView implements View {
 						break;
 					case "常用工具":
 						setSelection(main_center, FRAGMENT_TOOL);
+						break;
+					case "邮件发送器":
+						setSelection(main_center, FRAGMENT_EMAIL);
 						break;
 					case "退出":
 						Platform.exit();
@@ -161,7 +169,12 @@ public class MainView implements View {
 			}
 			toFragment(main_center,fragmentTool);
 			break;
-
+		case FRAGMENT_EMAIL:
+			if(fragmentEmail == null){
+				fragmentEmail = new EmailFragment();
+			}
+			toFragment(main_center,fragmentEmail);
+			break;
 		default:
 			break;
 		}
