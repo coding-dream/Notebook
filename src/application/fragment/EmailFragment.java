@@ -102,6 +102,8 @@ public class EmailFragment extends Fragment {
 			emailFrom.setFromNick("小灰灰");
 			emailFrom.setSubject("投稿申请: xx的文章投稿");
 			emailFrom.setText("Your email client does not support HTML messages");
+			emailFrom.setAttachmentName("xx.txt");
+			emailFrom.setAttachmentPath("C:\\xx.txt");
 			String json = new Gson().toJson(emailFrom);
 			saveLocal(cacheFrom, json);
 		}

@@ -18,6 +18,12 @@ public class EmailFrom {
 
 	private String text;
 
+	private boolean attached;
+
+	private String attachmentName;
+
+	private String attachmentPath;
+
 	public String getUser() {
 		return user;
 	}
@@ -82,9 +88,34 @@ public class EmailFrom {
 		this.text = text;
 	}
 
+	public String getAttachmentName() {
+		return attachmentName;
+	}
+
+	public void setAttachmentName(String attachmentName) {
+		this.attachmentName = attachmentName;
+	}
+
+	public String getAttachmentPath() {
+		return attachmentPath;
+	}
+
+	public void setAttachmentPath(String attachmentPath) {
+		this.attachmentPath = attachmentPath;
+	}
+
+	public boolean isAttached() {
+		return attached;
+	}
+
+	public void setAttached(boolean attached) {
+		this.attached = attached;
+	}
+
 	@Override
 	public String toString() {
 		return "EmailFrom [user=" + user + ", pwd=" + pwd + ", hostName=" + hostName + ", smtpPort=" + smtpPort
-				+ ", fromAddr=" + fromAddr + ", fromNick=" + fromNick + ", subject=" + subject + ", text=" + text + "]";
+				+ ", fromAddr=" + fromAddr + ", fromNick=" + fromNick + ", subject=" + subject + ", text=" + text
+				+ ", attachmentName=" + attachmentName + ", attachmentPath=" + attachmentPath + "]";
 	}
 }
